@@ -33,10 +33,28 @@ export default function Home({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View style={styles.touchBarWrap}>
-        <TouchBar onPress={() => alert('pressed')} icon="all" />
+        <TouchBar
+          title="All stuff"
+          number={237}
+          onPress={() => alert('pressed')}
+          icon="all"
+        />
+      </View>
+      <View style={styles.touchBarWrap}>
+        <TouchBar
+          title="To clear"
+          number={25}
+          onPress={() => alert('pressed')}
+          icon="clear"
+        />
       </View>
       <View>
-        <TouchBar onPress={() => alert('pressed')} icon="label" />
+        <TouchBar
+          title="Labels"
+          number={5}
+          onPress={() => alert('pressed')}
+          icon="label"
+        />
       </View>
       <FlatList
         style={styles.labelList}

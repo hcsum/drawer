@@ -4,23 +4,26 @@ import Text from './Text';
 import CommonStyles from '../CommonStyles';
 
 interface IProps {
+  title: string;
+  number: number;
   onPress: () => void;
-  icon: 'all' | 'label';
+  icon: 'all' | 'label' | 'clear';
 }
 
 const IconMap = {
   all: require('../assets/all.png'),
   label: require('../assets/label.png'),
+  clear: require('../assets/clear.png'),
 };
 
-const TouchBar = ({ onPress, icon }: IProps) => {
+const TouchBar = ({ title, number, onPress, icon }: IProps) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.title}>
         <Image style={styles.icon} source={IconMap[icon]} />
-        <Text>All Stuff</Text>
+        <Text>{title}</Text>
       </View>
-      <Text>238</Text>
+      <Text>{number}</Text>
     </TouchableOpacity>
   );
 };

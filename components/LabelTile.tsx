@@ -2,6 +2,7 @@ import CommonStyles from '../CommonStyles';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Text from './Text';
+import SubText from './SubText';
 
 interface IProps {
   name: string;
@@ -25,7 +26,7 @@ const LabelTile = ({ name, total, width, index }: IProps) => {
   return (
     <View style={containerStyle}>
       <Text>{name}</Text>
-      <Text>{total}</Text>
+      <SubText>{total} items</SubText>
     </View>
   );
 };

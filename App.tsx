@@ -6,6 +6,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AddNewPaletteModal from './screens/AddNewPaletteModal';
 import IconButton from './components/IconButton';
+import { View } from 'react-native';
 
 const MainStack = createStackNavigator();
 const RootStack = createStackNavigator();
@@ -21,13 +22,17 @@ const MainStackScreen = () => {
         options={{
           title: 'Drawer',
           headerRight: () => (
-            <IconButton
-              icon="add"
-              onPress={() => navigation.navigate('ColorsExample')}
-            />
+            <View style={{ paddingRight: 20 }}>
+              <IconButton
+                icon="add"
+                onPress={() => navigation.navigate('ColorsExample')}
+              />
+            </View>
           ),
           headerLeft: () => (
-            <IconButton icon="search" onPress={() => alert('search')} />
+            <View style={{ paddingLeft: 20 }}>
+              <IconButton icon="search" onPress={() => alert('search')} />
+            </View>
           ),
           headerTitleStyle: {
             fontFamily: 'Menlo',
