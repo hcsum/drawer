@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
 interface IProps {
-  children: string;
+  children: string | number;
 }
 
 const AppText = ({ children }: IProps) => {
