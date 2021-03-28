@@ -1,7 +1,7 @@
 import React from 'react';
 import ColorPalette from './screens/ColorPalette';
 import ColorsExample from './screens/ColorsExample';
-import Home from './screens/Home';
+import BottomNav from './components/Tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AddNewPaletteModal from './screens/AddNewPaletteModal';
@@ -18,20 +18,28 @@ const MainStackScreen = () => {
     <MainStack.Navigator>
       <MainStack.Screen
         name="Home"
-        component={Home}
+        component={BottomNav}
         options={{
           title: 'Drawer',
-          headerRight: () => (
-            <View style={{ paddingRight: 20 }}>
-              <IconButton
-                icon="add"
-                onPress={() => navigation.navigate('ColorsExample')}
-              />
-            </View>
-          ),
           headerLeft: () => (
             <View style={{ paddingLeft: 20 }}>
-              <IconButton icon="search" onPress={() => alert('search')} />
+              <IconButton type="search" onPress={() => alert('search')} />
+            </View>
+          ),
+          headerRight: () => (
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ paddingRight: 15 }}>
+                <IconButton
+                  type="options"
+                  onPress={() => navigation.navigate('ColorsExample')}
+                />
+              </View>
+              <View style={{ paddingRight: 20 }}>
+                <IconButton
+                  type="add"
+                  onPress={() => navigation.navigate('ColorsExample')}
+                />
+              </View>
             </View>
           ),
           headerTitleStyle: {

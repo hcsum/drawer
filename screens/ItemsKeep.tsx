@@ -1,7 +1,10 @@
 import React from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import TouchBar from '../components/TouchBar';
-import LabelTile from '../components/LabelTile';
+import LabelThumbnail from '../components/LabelThumbnail';
+import { getData, storeData } from '../utils/Storage';
+
+storeData('haha');
 
 const ItemsByLabel = [
   {
@@ -26,26 +29,22 @@ const ItemsByLabel = [
   },
 ];
 
-const ITEM_WIDTH = Dimensions.get('window').width;
+const WINDOW_WIDTH = Dimensions.get('window').width;
 const COLUMN = 2;
 
-export default function Home({ navigation, route }) {
+export default function ItemsToKeep({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View style={styles.touchBarWrap}>
         <TouchBar
-          title="All stuff"
+          title="All items"
           number={237}
-          onPress={() => alert('pressed')}
+          onPress={() => {
+            getData().then((data) => {
+              alert(data);
+            });
+          }}
           icon="all"
-        />
-      </View>
-      <View style={styles.touchBarWrap}>
-        <TouchBar
-          title="To clear"
-          number={25}
-          onPress={() => alert('pressed')}
-          icon="clear"
         />
       </View>
       <View>
@@ -64,8 +63,8 @@ export default function Home({ navigation, route }) {
         renderItem={({ item, index }) => {
           return (
             <View>
-              <LabelTile
-                width={(ITEM_WIDTH - 60) / COLUMN}
+              <LabelThumbnail
+                width={(WINDOW_WIDTH - 60) / COLUMN}
                 name={item.label}
                 total={item.total}
                 index={index}
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    paddingBottom: 5,
   },
   touchBarWrap: {
     marginBottom: 20,

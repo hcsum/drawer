@@ -1,29 +1,17 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import Icon, { IconProps } from './Icon';
 
-interface IProps {
+interface IProps extends IconProps {
   onPress: () => void;
-  icon: 'search' | 'add';
 }
 
-const IconMap = {
-  search: require('../assets/search.png'),
-  add: require('../assets/plus.png'),
-};
-
-const IconButton = ({ onPress, icon }: IProps) => {
+const IconButton = ({ onPress, type }: IProps) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Image style={styles.icon} source={IconMap[icon]} />
+      <Icon type={type} />
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 30,
-    height: 30,
-  },
-});
 
 export default IconButton;

@@ -11,7 +11,7 @@ interface IProps {
   width: number;
 }
 
-const LabelTile = ({ name, total, width, index }: IProps) => {
+const LabelThumbnail = ({ name, total, width, index }: IProps) => {
   const containerStyle = {
     ...styles.container,
     width,
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LabelTile;
+export default LabelThumbnail;
