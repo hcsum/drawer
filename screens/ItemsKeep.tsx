@@ -47,14 +47,6 @@ export default function ItemsToKeep({ navigation, route }) {
           icon="all"
         />
       </View>
-      <View>
-        <TouchBar
-          title="Labels"
-          number={5}
-          onPress={() => alert('pressed')}
-          icon="label"
-        />
-      </View>
       <FlatList
         style={styles.labelList}
         data={ItemsByLabel}
