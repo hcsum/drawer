@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ScreenItemsKeep from './ScreenItemsKeep';
 import ScreenItemsRemove from './ScreenItemsRemove';
-import Icon from '../components/Icon';
+import Icon, { IconType } from '../components/Icon';
 
 export type HomeTabStackParamList = {
   Keep: undefined;
@@ -20,16 +20,28 @@ export default function HomeTabs() {
         tabStyle: {
           marginTop: 8,
         },
+        activeTintColor: 'black',
+        inactiveTintColor: 'gray',
       }}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, size }) => {
+          let iconName: IconType;
+
+          if (route.name === 'Keep') {
+            iconName = focused ? 'drawer' : 'drawer-gray';
+          } else {
+            iconName = focused ? 'clear' : 'clear-gray';
+          }
+
+          return <Icon type={iconName} size={size} />;
+        },
+      })}
     >
       <Tab.Screen
         name="Keep"
         component={ScreenItemsKeep}
         options={{
           tabBarLabel: 'Keep',
-          tabBarIcon: ({ size }) => {
-            return <Icon type="drawer" size={size} />;
-          },
         }}
       />
       <Tab.Screen
@@ -37,7 +49,6 @@ export default function HomeTabs() {
         component={ScreenItemsRemove}
         options={{
           tabBarLabel: 'Clear',
-          tabBarIcon: () => <Icon type="remove" />,
         }}
       />
     </Tab.Navigator>

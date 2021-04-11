@@ -13,7 +13,7 @@ interface IProps {
 const IconMap = {
   all: require('../assets/all.png'),
   label: require('../assets/label.png'),
-  remove: require('../assets/remove.png'),
+  remove: require('../assets/clear.png'),
 };
 
 const TouchBar = ({ title, number, onPress, icon }: IProps) => {
