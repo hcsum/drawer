@@ -7,31 +7,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { HomeTabStackParamList } from './NavHome';
 import { RouteProp, CompositeNavigationProp } from '@react-navigation/native';
 import { MainScreenParamList } from './ScreenMain';
+import { useItems } from '../contexts/ItemsContext';
 
 storeData('haha');
-
-const ItemsByLabel = [
-  {
-    label: 'Wardrobe',
-    total: 36,
-  },
-  {
-    label: 'Kitchen',
-    total: 12,
-  },
-  {
-    label: 'Desk',
-    total: 8,
-  },
-  {
-    label: 'Bed',
-    total: 5,
-  },
-  {
-    label: 'Sport',
-    total: 15,
-  },
-];
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const COLUMN = 2;
@@ -48,12 +26,16 @@ type Props = {
 };
 
 export default function KeepItemsScreen({ navigation }: Props) {
+  const { labelsWithTotal, total } = useItems();
+
+  console.log('labels', labelsWithTotal);
+
   return (
     <View style={styles.container}>
       <View style={styles.touchBarWrap}>
         <TouchBar
           title="All items"
-          number={237}
+          number={total}
           onPress={() => {
             getData().then((data) => {
               alert(data);
@@ -64,19 +46,19 @@ export default function KeepItemsScreen({ navigation }: Props) {
       </View>
       <FlatList
         style={styles.labelList}
-        data={ItemsByLabel}
+        data={labelsWithTotal}
         numColumns={COLUMN}
-        keyExtractor={(item) => item.label}
+        keyExtractor={(item) => item[0]}
         renderItem={({ item, index }) => {
           return (
             <View>
               <LabelThumbnail
                 onTap={() => {
-                  navigation.navigate('ItemList', { name: item.label });
+                  navigation.navigate('ItemList', { name: item[0] });
                 }}
                 width={(WINDOW_WIDTH - 60) / COLUMN}
-                name={item.label}
-                total={item.total}
+                name={item[0]}
+                total={item[1]}
                 index={index}
               />
             </View>

@@ -9,11 +9,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator mode="modal">
-        <RootStack.Screen
-          name="Main"
-          component={Main}
-          options={{ headerShown: false }}
-        />
+        <RootStack.Screen name="Main" component={Main} options={{ headerShown: false }} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

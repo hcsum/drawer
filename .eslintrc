@@ -2,6 +2,7 @@
   "root": true,
   "extends": "@react-native-community",
   "rules": {
-    "react-hooks/exhaustive-deps": 0
+    "react-hooks/exhaustive-deps": 0,
+    "curly": ["error", "multi"]
   }
 }
