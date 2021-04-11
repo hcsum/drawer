@@ -1,12 +1,17 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ItemsKeep from '../screens/ItemsKeep';
-import ItemsRemove from '../screens/ItemsRemove';
-import Icon from './Icon';
+import ScreenItemsKeep from './ScreenItemsKeep';
+import ScreenItemsRemove from './ScreenItemsRemove';
+import Icon from '../components/Icon';
 
-const Tab = createBottomTabNavigator();
+export type HomeTabStackParamList = {
+  Keep: undefined;
+  Clear: undefined;
+};
 
-export default function BottomNav({ navigation, route }) {
+const Tab = createBottomTabNavigator<HomeTabStackParamList>();
+
+export default function HomeTabs() {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -19,18 +24,17 @@ export default function BottomNav({ navigation, route }) {
     >
       <Tab.Screen
         name="Keep"
-        component={ItemsKeep}
+        component={ScreenItemsKeep}
         options={{
           tabBarLabel: 'Keep',
-          tabBarIcon: ({ size, color }) => {
-            console.log('color', color);
+          tabBarIcon: ({ size }) => {
             return <Icon type="drawer" size={size} />;
           },
         }}
       />
       <Tab.Screen
         name="Clear"
-        component={ItemsRemove}
+        component={ScreenItemsRemove}
         options={{
           tabBarLabel: 'Clear',
           tabBarIcon: () => <Icon type="remove" />,

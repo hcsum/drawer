@@ -1,6 +1,6 @@
 import CommonStyles from '../CommonStyles';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Text from './Text';
 import SubText from './SubText';
 
@@ -9,9 +9,10 @@ interface IProps {
   total: number;
   index: number;
   width: number;
+  onTap: () => void;
 }
 
-const LabelThumbnail = ({ name, total, width, index }: IProps) => {
+const LabelThumbnail = ({ name, total, width, index, onTap }: IProps) => {
   const containerStyle = {
     ...styles.container,
     width,
@@ -24,10 +25,12 @@ const LabelThumbnail = ({ name, total, width, index }: IProps) => {
   }
 
   return (
-    <View style={containerStyle}>
-      <Text>{name}</Text>
-      <SubText>{total} items</SubText>
-    </View>
+    <TouchableOpacity onPress={onTap}>
+      <View style={containerStyle}>
+        <Text>{name}</Text>
+        <SubText>{total} items</SubText>
+      </View>
+    </TouchableOpacity>
   );
 };
 
