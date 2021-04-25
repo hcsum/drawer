@@ -1,32 +1,9 @@
 import React from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
-import LabelThumbnail from '../components/LabelThumbnail';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MainScreenParamList } from './ScreenMain';
-
-const ItemsByLabel = [
-  {
-    label: 'Wardrobe',
-    total: 36,
-  },
-  {
-    label: 'Kitchen',
-    total: 12,
-  },
-  {
-    label: 'Desk',
-    total: 8,
-  },
-  {
-    label: 'Bed',
-    total: 5,
-  },
-  {
-    label: 'Sport',
-    total: 15,
-  },
-];
+import ItemThumbnail from '../components/ItemThumbnail';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const COLUMN = 2;
@@ -39,22 +16,24 @@ type Props = {
   route: routeProp;
 };
 
-export default function ListScreen({ navigation }: Props) {
+export default function ItemList({ navigation, route }: Props) {
+  const { items } = route.params;
+
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.labelList}
-        data={ItemsByLabel}
+        data={items}
         numColumns={COLUMN}
         keyExtractor={(item) => item.label}
         renderItem={({ item, index }) => {
           return (
             <View>
-              <LabelThumbnail
+              <ItemThumbnail
                 onTap={() => navigation.navigate('ItemSingle')}
                 width={(WINDOW_WIDTH - 60) / COLUMN}
-                name={item.label}
-                total={item.total}
+                name={item.name}
+                note={item.note}
                 index={index}
               />
             </View>

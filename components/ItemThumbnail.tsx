@@ -1,18 +1,18 @@
 import CommonStyles from '../CommonStyles';
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import Text from './Text';
 import SubText from './SubText';
 
 interface IProps {
   name: string;
-  total: number;
+  note?: string;
   index: number;
   width: number;
   onTap: () => void;
 }
 
-const LabelThumbnail = ({ name, total, width, index, onTap }: IProps) => {
+const ItemThumbnail = ({ name, note, width, index, onTap }: IProps) => {
   const containerStyle = {
     ...styles.container,
     width,
@@ -24,8 +24,11 @@ const LabelThumbnail = ({ name, total, width, index, onTap }: IProps) => {
   return (
     <TouchableOpacity onPress={onTap}>
       <View style={containerStyle}>
-        <Text>{name}</Text>
-        <SubText>{total} items</SubText>
+        <Image style={styles.thumbnail} source={require('../assets/keychron-k6.jpeg')} />
+        <View style={styles.texts}>
+          <Text>{name}</Text>
+          <SubText>{note || ''}</SubText>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -35,12 +38,20 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     borderRadius: CommonStyles.borderRadius,
-    padding: 10,
     height: 200,
     marginLeft: 0,
     marginRight: 0,
     marginBottom: 20,
   },
+  thumbnail: {
+    flex: 1,
+    width: 'auto',
+    borderTopLeftRadius: CommonStyles.borderRadius,
+    borderTopRightRadius: CommonStyles.borderRadius,
+  },
+  texts: {
+    padding: 10,
+  },
 });
 
-export default LabelThumbnail;
+export default ItemThumbnail;

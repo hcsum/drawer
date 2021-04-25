@@ -2,14 +2,11 @@ import React from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import TouchBar from '../components/TouchBar';
 import LabelThumbnail from '../components/LabelThumbnail';
-import { getData, storeData } from '../utils/Storage';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { HomeTabStackParamList } from './NavHome';
 import { RouteProp, CompositeNavigationProp } from '@react-navigation/native';
 import { MainScreenParamList } from './ScreenMain';
 import { useItems } from '../contexts/ItemsContext';
-
-storeData('haha');
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const COLUMN = 2;
@@ -26,7 +23,7 @@ type Props = {
 };
 
 export default function KeepItemsScreen({ navigation }: Props) {
-  const { labelsWithTotal, total } = useItems();
+  const { labelsWithTotal, total, getItemsByLabel } = useItems();
 
   console.log('labels', labelsWithTotal);
 
@@ -37,9 +34,7 @@ export default function KeepItemsScreen({ navigation }: Props) {
           title="All items"
           number={total}
           onPress={() => {
-            getData().then((data) => {
-              alert(data);
-            });
+            alert('haha');
           }}
           icon="all"
         />
@@ -54,7 +49,7 @@ export default function KeepItemsScreen({ navigation }: Props) {
             <View>
               <LabelThumbnail
                 onTap={() => {
-                  navigation.navigate('ItemList', { name: item[0] });
+                  navigation.navigate('ItemList', { labelName: item[0], items: getItemsByLabel(item[0]) });
                 }}
                 width={(WINDOW_WIDTH - 60) / COLUMN}
                 name={item[0]}

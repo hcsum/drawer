@@ -1,15 +1,16 @@
 import React from 'react';
 import HomeTabs from './NavHome';
-import ItemList from '../screens/ScreenList';
+import ItemList from './ScreenItemList';
 import ItemSingle from '../screens/ScreenSingleItem';
 // import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import IconButton from '../components/IconButton';
 import { View } from 'react-native';
+import { TItem } from '../contexts/ItemsContext';
 
 export type MainScreenParamList = {
   Home: undefined;
-  ItemList: { name: string };
+  ItemList: { labelName: string; items: TItem[] };
   ItemSingle: undefined;
 };
 
@@ -49,7 +50,7 @@ const MainScreen = () => {
       <Stack.Screen
         name="ItemList"
         component={ItemList}
-        options={({ route }) => ({ title: route.params.name })}
+        options={({ route }) => ({ title: route.params.labelName })}
       />
       <Stack.Screen name="ItemSingle" component={ItemSingle} />
     </Stack.Navigator>

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { getData, storeData } from '../utils/Storage';
 
 const MOCK_DATA: TItem[] = [
   {
@@ -40,7 +41,7 @@ const MOCK_DATA: TItem[] = [
   },
 ];
 
-type TItem = {
+export type TItem = {
   name: string;
   note?: string;
   amount: number;
@@ -72,21 +73,31 @@ function useItems() {
     return Object.entries(map);
   }, [items]);
 
+  const getItemsByLabel = (label: string) => items.filter((item) => item.label === label);
+
   const total = useMemo(() => labelsWithTotal.reduce((accu, label) => (accu += label[1]), 0), [
     labelsWithTotal,
-  ]);
+  ]); // what is this for? total items?
 
   return {
     items,
     labelsWithTotal,
     setItems,
     total,
+    getItemsByLabel,
   };
 }
 
 function ItemsProvider(props: any) {
-  const [items, setItems] = useState(MOCK_DATA);
+  const [items, setItems] = useState([]);
   const value = useMemo(() => [items, setItems], [items]);
+
+  useEffect(() => {
+    storeData(JSON.stringify(MOCK_DATA))
+      .then(getData)
+      .then((data) => data && setItems(JSON.parse(data)));
+  }, []);
+
   return <ItemsContext.Provider value={value} {...props} />;
 }
 
