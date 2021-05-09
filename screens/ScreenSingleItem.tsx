@@ -1,7 +1,8 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import shared from '../CommonStyles';
 import { MainScreenParamList } from './ScreenMain';
 
@@ -13,32 +14,72 @@ type Props = {
   route: routeProp;
 };
 
-export default ({ navigation, route }: Props) => {
+const ScreenSingleItem = ({ navigation, route }: Props) => {
   const { item } = route.params;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageAndName}>
-        <Image source={require('../assets/keychron-k6.jpeg')} style={shared.image} />
-        <View style={styles.subSection}>
-          <Text style={shared.bigText}>{item.name}</Text>
+    <KeyboardAwareScrollView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <View style={styles.imageAndName}>
+            <Image source={require('../assets/keychron-k6.jpeg')} style={shared.image} />
+            <View>
+              <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.labelName}>{item.label}</Text>
+            </View>
+          </View>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Note</Text>
+            <TextInput editable maxLength={1000} multiline numberOfLines={4} />
+          </View>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Amount</Text>
+            <TextInput editable maxLength={1000} multiline numberOfLines={4} />
+          </View>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Amount</Text>
+            <TextInput editable maxLength={1000} multiline numberOfLines={4} />
+          </View>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Amount</Text>
+            <TextInput editable maxLength={1000} multiline numberOfLines={4} />
+          </View>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Amount</Text>
+            <TextInput editable maxLength={1000} multiline numberOfLines={4} />
+          </View>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Amount</Text>
+            <TextInput editable maxLength={1000} multiline numberOfLines={4} />
+          </View>
         </View>
-      </View>
-      <View />
-      <View />
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: shared.common.screenPadding,
+    padding: shared.screen.padding,
+    flex: 1,
   },
   imageAndName: {
     ...shared.section,
     height: 300,
   },
-  subSection: {
-    padding: 10,
+  itemName: {
+    fontSize: shared.bigSizeText,
+  },
+  labelName: {
+    ...shared.secondaryText,
+  },
+  noteSection: {
+    ...shared.section,
+    minHeight: 100,
+  },
+  sectionTitle: {
+    ...shared.normalText,
   },
 });
+
+export default ScreenSingleItem;

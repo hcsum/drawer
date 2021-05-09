@@ -1,17 +1,21 @@
-import { StyleSheet } from 'react-native';
-
 const borderRadius = 10;
 const screenPadding = 20;
 const backgroundColor = 'white';
+const bigSizeText = 30;
+const smaillSizeText = 18;
 
-export default StyleSheet.create({
+export default {
   common: {
     borderRadius,
-    screenPadding,
+  },
+  screen: {
+    padding: screenPadding,
   },
   section: {
     borderRadius,
     backgroundColor,
+    padding: 10,
+    marginBottom: 20,
   },
   image: {
     flex: 1,
@@ -19,7 +23,14 @@ export default StyleSheet.create({
     borderTopLeftRadius: borderRadius,
     borderTopRightRadius: borderRadius,
   },
-  bigText: {
-    fontSize: 30,
+  normalText: {
+    fontSize: 20,
+    color: 'black',
   },
-});
+  secondaryText: {
+    fontSize: 16,
+    color: 'gray',
+  },
+  bigSizeText,
+  smaillSizeText,
+};
