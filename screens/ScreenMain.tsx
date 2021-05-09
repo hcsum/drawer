@@ -11,7 +11,9 @@ import { TItem } from '../contexts/ItemsContext';
 export type MainScreenParamList = {
   Home: undefined;
   ItemList: { labelName: string; items: TItem[] };
-  ItemSingle: undefined;
+  ItemSingle: {
+    item: TItem;
+  };
 };
 
 const Stack = createStackNavigator<MainScreenParamList>();

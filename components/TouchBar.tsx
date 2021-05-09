@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, View } from 'react-native';
 import Text from './Text';
-import CommonStyles from '../CommonStyles';
+import shared from '../CommonStyles';
 
 interface IProps {
   title: string;
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     padding: 20,
-    borderRadius: CommonStyles.borderRadius,
+    borderRadius: shared.common.borderRadius,
   },
   title: {
     flexDirection: 'row',

@@ -1,4 +1,4 @@
-import CommonStyles from '../CommonStyles';
+import shared from '../CommonStyles';
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import Text from './Text';
@@ -37,18 +37,13 @@ const ItemThumbnail = ({ name, note, width, index, onTap }: IProps) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    borderRadius: CommonStyles.borderRadius,
+    borderRadius: shared.common.borderRadius,
     height: 200,
     marginLeft: 0,
     marginRight: 0,
     marginBottom: 20,
   },
-  thumbnail: {
-    flex: 1,
-    width: 'auto',
-    borderTopLeftRadius: CommonStyles.borderRadius,
-    borderTopRightRadius: CommonStyles.borderRadius,
-  },
+  thumbnail: shared.image,
   texts: {
     padding: 10,
   },

@@ -56,7 +56,7 @@ export default function RemoveItemsScreen({ navigation }: Props) {
             <View>
               <LabelThumbnail
                 onTap={() => {
-                  navigation.navigate('ItemSingle');
+                  // navigation.navigate('ItemList', {items});
                 }}
                 width={(WINDOW_WIDTH - 60) / COLUMN}
                 name={item.label}

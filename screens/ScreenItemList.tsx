@@ -30,7 +30,7 @@ export default function ItemList({ navigation, route }: Props) {
           return (
             <View>
               <ItemThumbnail
-                onTap={() => navigation.navigate('ItemSingle')}
+                onTap={() => navigation.navigate('ItemSingle', { item })}
                 width={(WINDOW_WIDTH - 60) / COLUMN}
                 name={item.name}
                 note={item.note}
@@ -46,7 +46,6 @@ export default function ItemList({ navigation, route }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 20,
     paddingBottom: 5,
   },

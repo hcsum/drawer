@@ -16,7 +16,6 @@ type navigationProp = CompositeNavigationProp<
   StackNavigationProp<MainScreenParamList, 'ItemList'>
 >;
 type routeProp = RouteProp<HomeTabStackParamList, 'Keep'>;
-
 type Props = {
   navigation: navigationProp;
   route: routeProp;

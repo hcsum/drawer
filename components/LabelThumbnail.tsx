@@ -1,4 +1,4 @@
-import CommonStyles from '../CommonStyles';
+import shared from '../CommonStyles';
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Text from './Text';
@@ -34,7 +34,7 @@ const LabelThumbnail = ({ name, total, width, index, onTap }: IProps) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    borderRadius: CommonStyles.borderRadius,
+    borderRadius: shared.common.borderRadius,
     padding: 10,
     height: 200,
     marginLeft: 0,
