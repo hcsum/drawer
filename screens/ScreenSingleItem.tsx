@@ -1,35 +1,22 @@
 import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import NumericInput from 'react-native-numeric-input';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
 import shared from '../CommonStyles';
 import { MainScreenParamList } from './ScreenMain';
 
-type navigationProp = StackNavigationProp<MainScreenParamList, 'ItemSingle'>;
+// type navigationProp = StackNavigationProp<MainScreenParamList, 'ItemSingle'>;
 type routeProp = RouteProp<MainScreenParamList, 'ItemSingle'>;
 
 type Props = {
-  navigation: navigationProp;
   route: routeProp;
 };
 
-const ScreenSingleItem = ({ navigation, route }: Props) => {
+const ScreenSingleItem = ({ route }: Props) => {
   const { item } = route.params;
 
   return (
-    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <KeyboardAvoidingView style={styles.container} behavior="position" keyboardVerticalOffset={100}>
       <ScrollView>
         <View>
@@ -43,6 +30,7 @@ const ScreenSingleItem = ({ navigation, route }: Props) => {
           <View style={styles.noteSection}>
             <Text style={styles.sectionTitle}>Note</Text>
             <TextInput
+              value={item.note}
               editable
               maxLength={1000}
               multiline
@@ -59,7 +47,7 @@ const ScreenSingleItem = ({ navigation, route }: Props) => {
             <Text style={styles.sectionTitle}>Date Acquired</Text>
             <DateTimePicker
               testID="dateTimePicker"
-              value={new Date()}
+              value={new Date(item.dateAcquired)}
               textColor="black"
               mode="date"
               display="default"
@@ -67,22 +55,23 @@ const ScreenSingleItem = ({ navigation, route }: Props) => {
             />
             <Text style={styles.subText}>6 years ago</Text>
           </View>
-          <View style={styles.noteSection}>
-            <Text style={styles.sectionTitle}>Last Time Used</Text>
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={new Date()}
-              textColor="black"
-              mode="date"
-              display="default"
-              onChange={(date) => console.log(date)}
-            />
-            <Text style={styles.subText}>6 years ago</Text>
-          </View>
+          {item.dateLastUsed && (
+            <View style={styles.noteSection}>
+              <Text style={styles.sectionTitle}>Last Time Used</Text>
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={new Date(item.dateLastUsed)}
+                textColor="black"
+                mode="date"
+                display="default"
+                onChange={(date) => console.log(date)}
+              />
+              <Text style={styles.subText}>6 years ago</Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
-    // {/* </TouchableWithoutFeedback> */}
   );
 };
 
@@ -99,7 +88,6 @@ const styles = StyleSheet.create({
   },
   labelName: {
     ...shared.secondaryText,
-    alignSelf: 'flex-end',
   },
   noteSection: {
     ...shared.section,

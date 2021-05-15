@@ -3,6 +3,7 @@
   "extends": "@react-native-community",
   "rules": {
     "react-hooks/exhaustive-deps": 0,
-    "curly": ["error", "multi"]
+    "curly": ["error", "multi"],
+    "@typescript-eslint/no-unused-vars": 1
   }
 }

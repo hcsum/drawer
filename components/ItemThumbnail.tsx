@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import Text from './Text';
 import SubText from './SubText';
+import truncate from '../utils/truncate';
 
 interface IProps {
   name: string;
@@ -27,7 +28,7 @@ const ItemThumbnail = ({ name, note, width, index, onTap }: IProps) => {
         <Image style={styles.thumbnail} source={require('../assets/keychron-k6.jpeg')} />
         <View style={styles.texts}>
           <Text>{name}</Text>
-          <SubText>{note || ''}</SubText>
+          <SubText>{truncate(note)}</SubText>
         </View>
       </View>
     </TouchableOpacity>

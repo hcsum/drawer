@@ -16,7 +16,7 @@ export default {
     borderRadius,
     backgroundColor,
     padding: 10,
-    marginBottom: 20,
+    marginBottom: 30,
   },
   image: {
     flex: 1,
