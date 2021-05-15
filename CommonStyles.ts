@@ -1,5 +1,5 @@
 const borderRadius = 10;
-const screenPadding = 20;
+const screenPadding = 10;
 const backgroundColor = 'white';
 const bigSizeText = 30;
 const smaillSizeText = 18;
@@ -10,6 +10,7 @@ export default {
   },
   screen: {
     padding: screenPadding,
+    flex: 1,
   },
   section: {
     borderRadius,
@@ -33,4 +34,7 @@ export default {
   },
   bigSizeText,
   smaillSizeText,
+  inputArea: {
+    borderRadius: 5,
+  },
 };
