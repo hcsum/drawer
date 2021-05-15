@@ -1,5 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import NumericInput from 'react-native-numeric-input';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import React from 'react';
 import {
   View,
@@ -27,32 +29,60 @@ const ScreenSingleItem = ({ navigation, route }: Props) => {
   const { item } = route.params;
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView style={styles.container} behavior="position" keyboardVerticalOffset={100}>
-        <ScrollView>
-          <View>
-            <View style={styles.imageAndName}>
-              <Image source={require('../assets/keychron-k6.jpeg')} style={shared.image} />
-              <View>
-                <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.labelName}>{item.label}</Text>
-              </View>
-            </View>
-            <View style={styles.noteSection}>
-              <Text style={styles.sectionTitle}>Note</Text>
-              <TextInput
-                editable
-                maxLength={1000}
-                multiline
-                numberOfLines={4}
-                placeholder="..."
-                style={styles.inputArea}
-              />
+    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <KeyboardAvoidingView style={styles.container} behavior="position" keyboardVerticalOffset={100}>
+      <ScrollView>
+        <View>
+          <View style={styles.imageAndName}>
+            <Image source={require('../assets/keychron-k6.jpeg')} style={shared.image} />
+            <View>
+              <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.labelName}>{item.label}</Text>
             </View>
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Note</Text>
+            <TextInput
+              editable
+              maxLength={1000}
+              multiline
+              numberOfLines={4}
+              placeholder="..."
+              style={styles.inputArea}
+            />
+          </View>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Amount</Text>
+            <NumericInput onChange={(value) => console.log(value)} rounded minValue={1} />
+          </View>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Date Acquired</Text>
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={new Date()}
+              textColor="black"
+              mode="date"
+              display="default"
+              onChange={(date) => console.log(date)}
+            />
+            <Text style={styles.subText}>6 years ago</Text>
+          </View>
+          <View style={styles.noteSection}>
+            <Text style={styles.sectionTitle}>Last Time Used</Text>
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={new Date()}
+              textColor="black"
+              mode="date"
+              display="default"
+              onChange={(date) => console.log(date)}
+            />
+            <Text style={styles.subText}>6 years ago</Text>
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+    // {/* </TouchableWithoutFeedback> */}
   );
 };
 
@@ -69,6 +99,7 @@ const styles = StyleSheet.create({
   },
   labelName: {
     ...shared.secondaryText,
+    alignSelf: 'flex-end',
   },
   noteSection: {
     ...shared.section,
@@ -76,11 +107,15 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     ...shared.normalText,
+    marginBottom: 10,
   },
   inputArea: {
     ...shared.inputArea,
-    borderWidth: 1,
     flex: 1,
+  },
+  subText: {
+    ...shared.secondaryText,
+    alignSelf: 'flex-end',
   },
 });
 
