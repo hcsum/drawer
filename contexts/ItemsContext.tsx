@@ -1,94 +1,20 @@
 import * as React from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useReducer } from 'react';
 import { getData, storeData } from '../utils/Storage';
+import { MOCK_DATA, TItem, TItemsAction } from './ItemsTypeDef';
 
-const MOCK_DATA: TItem[] = [
-  {
-    name: 'Respberry Pi',
-    note: 'My mini computer',
-    amount: 1,
-    img: undefined,
-    label: 'Gadget',
-    dateAcquired: '2021-01-30',
-    id: '897656556',
-  },
-  {
-    name: 'Keydrous keyboard',
-    note: 'Awesome 60% mechanical keyboard!! so sao!!',
-    amount: 1,
-    img: undefined,
-    label: 'Gadget',
-    dateAcquired: '2021-03-16',
-    id: '897656588',
-  },
-  {
-    name: 'Thin sport coat',
-    note: 'love it so much, so useful',
-    amount: 1,
-    img: undefined,
-    label: 'Wardrobe',
-    dateAcquired: '2021-04-05',
-    id: '897656558',
-  },
-  {
-    name: 'Socks',
-    note: 'socks and floor',
-    amount: 6,
-    img: undefined,
-    label: 'Wardrobe',
-    dateAcquired: '2021-04-05',
-    id: '897656555',
-  },
-  {
-    name: 'Tennis racket',
-    note: 'Oh tennis',
-    amount: 1,
-    img: undefined,
-    label: 'Sport',
-    dateAcquired: '2020-08-20',
-    id: '897656511',
-  },
-  {
-    name: 'Starbuck cup',
-    note: 'my cup!',
-    amount: 1,
-    img: undefined,
-    label: 'Daily',
-    dateAcquired: '2020-08-20',
-    id: '897656590',
-  },
-  {
-    name: 'Keychron K3',
-    note: 'so low so nice',
-    amount: 1,
-    img: undefined,
-    label: 'Gadget',
-    dateAcquired: '2020-08-20',
-    id: '891156590',
-  },
-  {
-    name: 'Glasses',
-    note: 'i need to see',
-    amount: 1,
-    img: undefined,
-    label: 'Daily',
-    dateAcquired: '2020-08-20',
-    id: '891156090',
-  },
-];
+function itemsReducer(state: TItem[], action: TItemsAction) {
+  switch (action.type) {
+    case 'SET': {
+      return action.payload;
+    }
+    case 'ADD': {
+      return [...state, action.payload];
+    }
+  }
+}
 
-export type TItem = {
-  name: string;
-  note?: string;
-  amount: number;
-  img: string | undefined;
-  label: string;
-  dateLastUsed?: number;
-  dateAcquired: string;
-  id: string;
-};
-
-type TItemsContext = [TItem[], React.Dispatch<React.SetStateAction<TItem[]>>];
+type TItemsContext = [TItem[], React.Dispatch<TItemsAction>];
 
 const ItemsContext = React.createContext<TItemsContext | undefined>(undefined);
 
@@ -96,8 +22,9 @@ function useItems() {
   const context = React.useContext(ItemsContext);
   if (!context) throw new Error('useItems must be used within a ItemsProvider');
 
-  const [items, setItems] = context;
+  const [items, dispatch] = context;
 
+  // ------------ states ---------------
   const labelsWithTotal = useMemo(() => {
     const map = items.reduce((accu, item) => {
       if (!accu[item.label]) accu[item.label] = 1;
@@ -109,29 +36,27 @@ function useItems() {
     return Object.entries(map);
   }, [items]);
 
+  // ------------ methods ---------------
   const getItemsByLabel = (label: string) => items.filter((item) => item.label === label);
 
-  const total = useMemo(() => labelsWithTotal.reduce((accu, label) => (accu += label[1]), 0), [
-    labelsWithTotal,
-  ]); // what is this for? total items?
+  const setItems = (list: TItem[]) => dispatch({ type: 'SET', payload: list });
 
   return {
     items,
     labelsWithTotal,
     setItems,
-    total,
     getItemsByLabel,
   };
 }
 
 function ItemsProvider(props: any) {
-  const [items, setItems] = useState([]);
-  const value = useMemo(() => [items, setItems], [items]);
+  const [items, dispatch] = useReducer(itemsReducer, []);
+  const value = useMemo(() => [items, dispatch], [items]);
 
   useEffect(() => {
     storeData(JSON.stringify(MOCK_DATA))
       .then(getData)
-      .then((data) => data && setItems(JSON.parse(data)));
+      .then((data) => data && dispatch({ type: 'SET', payload: JSON.parse(data) }));
   }, []);
 
   return <ItemsContext.Provider value={value} {...props} />;

@@ -2,7 +2,7 @@ import React from 'react';
 import HomeTabs from './NavHome';
 import ItemList from './ScreenItemList';
 import ItemSingle from '../screens/ScreenSingleItem';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import IconButton from '../components/IconButton';
 import { View } from 'react-native';
@@ -19,7 +19,7 @@ export type MainScreenParamList = {
 const Stack = createStackNavigator<MainScreenParamList>();
 
 const MainScreen = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   return (
     <Stack.Navigator>

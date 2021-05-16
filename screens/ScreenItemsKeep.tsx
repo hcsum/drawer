@@ -22,7 +22,7 @@ type Props = {
 };
 
 export default function KeepItemsScreen({ navigation }: Props) {
-  const { labelsWithTotal, total, getItemsByLabel } = useItems();
+  const { labelsWithTotal, getItemsByLabel, items } = useItems();
 
   console.log('labels', labelsWithTotal);
 
@@ -31,7 +31,7 @@ export default function KeepItemsScreen({ navigation }: Props) {
       <View style={styles.touchBarWrap}>
         <TouchBar
           title="All items"
-          number={total}
+          number={items.length}
           onPress={() => {
             alert('haha');
           }}
