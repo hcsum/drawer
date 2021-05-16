@@ -9,7 +9,7 @@ export type TItem = {
   id: string;
 };
 
-export type TItemsAction = ActionSet | ActionAdd;
+export type TItemsAction = ActionSet | ActionAdd | ActionUpdate;
 
 type ActionSet = {
   type: 'SET';
@@ -18,6 +18,11 @@ type ActionSet = {
 
 type ActionAdd = {
   type: 'ADD';
+  payload: TItem;
+};
+
+type ActionUpdate = {
+  type: 'UPDATE';
   payload: TItem;
 };
 

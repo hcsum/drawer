@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import IconButton from '../components/IconButton';
 import { View } from 'react-native';
-import { TItem } from '../contexts/ItemsContext';
+import { TItem } from '../contexts/ItemsTypeDef';
 
 export type MainScreenParamList = {
   Home: undefined;

@@ -11,6 +11,16 @@ function itemsReducer(state: TItem[], action: TItemsAction) {
     case 'ADD': {
       return [...state, action.payload];
     }
+    case 'UPDATE': {
+      const { id } = action.payload;
+
+      // let's try if directly mutating the item object without updating it in the array works
+      const item = state.find((it) => it.id === id);
+
+      if (item) Object.assign(item, action.payload);
+
+      return state;
+    }
   }
 }
 
@@ -38,14 +48,19 @@ function useItems() {
 
   // ------------ methods ---------------
   const getItemsByLabel = (label: string) => items.filter((item) => item.label === label);
-
+  const getItemByID = (id: string) => items.filter((item) => item.id === id)[0];
   const setItems = (list: TItem[]) => dispatch({ type: 'SET', payload: list });
+  const addItem = (item: TItem) => dispatch({ type: 'ADD', payload: item });
+  const updateItem = (item: TItem) => dispatch({ type: 'UPDATE', payload: item });
 
   return {
     items,
     labelsWithTotal,
-    setItems,
     getItemsByLabel,
+    getItemByID,
+    setItems,
+    addItem,
+    updateItem,
   };
 }
 

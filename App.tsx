@@ -2,16 +2,19 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Main from './screens/ScreenMain';
+import { ItemsProvider } from './contexts/ItemsContext';
 
 const RootStack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <RootStack.Navigator mode="modal">
-        <RootStack.Screen name="Main" component={Main} options={{ headerShown: false }} />
-      </RootStack.Navigator>
-    </NavigationContainer>
+    <ItemsProvider>
+      <NavigationContainer>
+        <RootStack.Navigator mode="modal">
+          <RootStack.Screen name="Main" component={Main} options={{ headerShown: false }} />
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </ItemsProvider>
   );
 };
 

@@ -1,12 +1,13 @@
 import { RouteProp } from '@react-navigation/native';
 import NumericInput from 'react-native-numeric-input';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
 import shared from '../CommonStyles';
 import { MainScreenParamList } from './ScreenMain';
+import { useItems } from '../contexts/ItemsContext';
+import { TItem } from '../contexts/ItemsTypeDef';
 
-// type navigationProp = StackNavigationProp<MainScreenParamList, 'ItemSingle'>;
 type routeProp = RouteProp<MainScreenParamList, 'ItemSingle'>;
 
 type Props = {
@@ -15,6 +16,15 @@ type Props = {
 
 const ScreenSingleItem = ({ route }: Props) => {
   const { item } = route.params;
+  const { updateItem } = useItems();
+  const [localItem, setLocalItem] = useState(item);
+
+  function update(field: Partial<TItem>) {
+    const updated = { ...item, ...field };
+
+    updateItem(updated);
+    setLocalItem(updated);
+  }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="position" keyboardVerticalOffset={100}>
@@ -30,18 +40,24 @@ const ScreenSingleItem = ({ route }: Props) => {
           <View style={styles.noteSection}>
             <Text style={styles.sectionTitle}>Note</Text>
             <TextInput
-              value={item.note}
+              value={localItem.note}
               editable
               maxLength={1000}
               multiline
               numberOfLines={4}
               placeholder="..."
               style={styles.inputArea}
+              onChangeText={(text) => update({ note: text })}
             />
           </View>
           <View style={styles.noteSection}>
             <Text style={styles.sectionTitle}>Amount</Text>
-            <NumericInput onChange={(value) => console.log(value)} rounded minValue={1} />
+            <NumericInput
+              onChange={(value) => update({ amount: value })}
+              rounded
+              minValue={1}
+              value={localItem.amount}
+            />
           </View>
           <View style={styles.noteSection}>
             <Text style={styles.sectionTitle}>Date Acquired</Text>
