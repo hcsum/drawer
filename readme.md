@@ -1,16 +1,25 @@
+# Drawer
+
+An app to help people sort out all the possessions they have
+
 ## Todo
 
 data
-- state management
-- data persistance
+
+- persist user inputs
 
 UI
-- item thumbnails page
-- single item page
 
-crud
-- add item
-- add label
-- edit item
-- delete item
-- to clear page
+- single item page: use popup modal for input fields (tap on a section to trigger the modal)
+
+Navigation
+
+- toClear list
+- main page All items button
+
+feat
+
+- add an item
+- notification for items exceed lastUsedDate
+- settings page
+- search items

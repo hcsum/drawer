@@ -2,7 +2,15 @@ import { RouteProp } from '@react-navigation/native';
 import NumericInput from 'react-native-numeric-input';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native';
 import shared from '../CommonStyles';
 import { MainScreenParamList } from './ScreenMain';
 import { useItems } from '../contexts/ItemsContext';
@@ -27,13 +35,16 @@ const ScreenSingleItem = ({ route }: Props) => {
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="position" keyboardVerticalOffset={100}>
+    <KeyboardAvoidingView style={styles.container} behavior="position">
       <ScrollView>
         <View>
           <View style={styles.imageAndName}>
-            <Image source={require('../assets/keychron-k6.jpeg')} style={shared.image} />
+            <Image
+              source={require('../assets/keychron-k6.jpeg')}
+              style={shared.image}
+            />
             <View>
-              <Text style={styles.itemName}>{item.name}</Text>
+              <TextInput style={styles.itemName}>{item.name}</TextInput>
               <Text style={styles.labelName}>{item.label}</Text>
             </View>
           </View>

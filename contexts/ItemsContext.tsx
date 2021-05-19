@@ -15,11 +15,13 @@ function itemsReducer(state: TItem[], action: TItemsAction) {
       const { id } = action.payload;
 
       // let's try if directly mutating the item object without updating it in the array works
+      // it works...
       const item = state.find((it) => it.id === id);
 
       if (item) Object.assign(item, action.payload);
 
-      return state;
+      // so even the obj is the same, returning a new array is enough to tirgger a rerender?
+      return [...state];
     }
   }
 }
@@ -47,11 +49,13 @@ function useItems() {
   }, [items]);
 
   // ------------ methods ---------------
-  const getItemsByLabel = (label: string) => items.filter((item) => item.label === label);
+  const getItemsByLabel = (label: string) =>
+    items.filter((item) => item.label === label);
   const getItemByID = (id: string) => items.filter((item) => item.id === id)[0];
   const setItems = (list: TItem[]) => dispatch({ type: 'SET', payload: list });
   const addItem = (item: TItem) => dispatch({ type: 'ADD', payload: item });
-  const updateItem = (item: TItem) => dispatch({ type: 'UPDATE', payload: item });
+  const updateItem = (item: TItem) =>
+    dispatch({ type: 'UPDATE', payload: item });
 
   return {
     items,
@@ -71,7 +75,9 @@ function ItemsProvider(props: any) {
   useEffect(() => {
     storeData(JSON.stringify(MOCK_DATA))
       .then(getData)
-      .then((data) => data && dispatch({ type: 'SET', payload: JSON.parse(data) }));
+      .then(
+        (data) => data && dispatch({ type: 'SET', payload: JSON.parse(data) })
+      );
   }, []);
 
   return <ItemsContext.Provider value={value} {...props} />;
