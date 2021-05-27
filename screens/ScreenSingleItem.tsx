@@ -1,4 +1,4 @@
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 import NumericInput from 'react-native-numeric-input';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from 'react';
@@ -23,6 +23,7 @@ type Props = {
 };
 
 const ScreenSingleItem = ({ route }: Props) => {
+  const navigation = useNavigation();
   const { item } = route.params;
   const { updateItem } = useItems();
   const [localItem, setLocalItem] = useState(item);
@@ -44,7 +45,14 @@ const ScreenSingleItem = ({ route }: Props) => {
               style={shared.image}
             />
             <View>
-              <TextInput style={styles.itemName}>{item.name}</TextInput>
+              <Text
+                style={styles.itemName}
+                onPress={() => {
+                  navigation.navigate('InputPopup');
+                }}
+              >
+                {item.name}
+              </Text>
               <Text style={styles.labelName}>{item.label}</Text>
             </View>
           </View>

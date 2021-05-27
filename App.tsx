@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Main from './screens/ScreenMain';
 import { ItemsProvider } from './contexts/ItemsContext';
+import ScreenInputPopup from './screens/ScreenInputPopup';
 
 const RootStack = createStackNavigator();
 
@@ -14,6 +15,11 @@ const App = () => {
           <RootStack.Screen
             name="Main"
             component={Main}
+            options={{ headerShown: false }}
+          />
+          <RootStack.Screen
+            name="InputPopup"
+            component={ScreenInputPopup}
             options={{ headerShown: false }}
           />
         </RootStack.Navigator>

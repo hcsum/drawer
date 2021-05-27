@@ -27,7 +27,8 @@ export default function HomeTabs() {
         tabBarIcon: ({ focused, size }) => {
           let iconName: IconType;
 
-          if (route.name === 'Keep') iconName = focused ? 'drawer' : 'drawer-gray';
+          if (route.name === 'Keep')
+            iconName = focused ? 'drawer' : 'drawer-gray';
           else iconName = focused ? 'clear' : 'clear-gray';
 
           return <Icon type={iconName} size={size} />;
