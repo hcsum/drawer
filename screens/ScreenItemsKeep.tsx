@@ -36,30 +36,31 @@ export default function KeepItemsScreen({ navigation }: Props) {
           icon="all"
         />
       </View>
-      <FlatList
-        style={styles.labelList}
-        data={labelsWithTotal}
-        numColumns={COLUMN}
-        keyExtractor={(item) => item[0]}
-        renderItem={({ item, index }) => {
-          return (
-            <View>
-              <LabelThumbnail
-                onTap={() => {
-                  navigation.navigate('ItemList', {
-                    labelName: item[0],
-                    items: getItemsByLabel(item[0]),
-                  });
-                }}
-                width={(WINDOW_WIDTH - 60) / COLUMN}
-                name={item[0]}
-                total={item[1]}
-                index={index}
-              />
-            </View>
-          );
-        }}
-      />
+      <View style={styles.labelList}>
+        <FlatList
+          data={labelsWithTotal}
+          numColumns={COLUMN}
+          keyExtractor={(item) => item[0]}
+          renderItem={({ item, index }) => {
+            return (
+              <View>
+                <LabelThumbnail
+                  onTap={() => {
+                    navigation.navigate('ItemList', {
+                      labelName: item[0],
+                      items: getItemsByLabel(item[0]),
+                    });
+                  }}
+                  width={(WINDOW_WIDTH - 60) / COLUMN}
+                  name={item[0]}
+                  total={item[1]}
+                  index={index}
+                />
+              </View>
+            );
+          }}
+        />
+      </View>
     </View>
   );
 }
@@ -74,6 +75,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   labelList: {
+    flex: 1,
     marginTop: 20,
+    paddingBottom: 60,
   },
 });
