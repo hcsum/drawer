@@ -24,8 +24,6 @@ type Props = {
 export default function KeepItemsScreen({ navigation }: Props) {
   const { labelsWithTotal, getItemsByLabel, items } = useItems();
 
-  console.log('labels', labelsWithTotal);
-
   return (
     <View style={styles.container}>
       <View style={styles.touchBarWrap}>
@@ -48,7 +46,10 @@ export default function KeepItemsScreen({ navigation }: Props) {
             <View>
               <LabelThumbnail
                 onTap={() => {
-                  navigation.navigate('ItemList', { labelName: item[0], items: getItemsByLabel(item[0]) });
+                  navigation.navigate('ItemList', {
+                    labelName: item[0],
+                    items: getItemsByLabel(item[0]),
+                  });
                 }}
                 width={(WINDOW_WIDTH - 60) / COLUMN}
                 name={item[0]}

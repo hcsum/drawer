@@ -5,7 +5,17 @@ import Main from './screens/ScreenMain';
 import { ItemsProvider } from './contexts/ItemsContext';
 import ScreenInputPopup from './screens/ScreenInputPopup';
 
-const RootStack = createStackNavigator();
+export type RootScreenParamList = {
+  Main: undefined;
+  InputPopup: {
+    value: string;
+    fieldName: string;
+    isMultiLine: boolean;
+    onChange: (val: string) => void;
+  };
+};
+
+const RootStack = createStackNavigator<RootScreenParamList>();
 
 const App = () => {
   return (
@@ -20,7 +30,10 @@ const App = () => {
           <RootStack.Screen
             name="InputPopup"
             component={ScreenInputPopup}
-            options={{ headerShown: false }}
+            options={{
+              headerShown: false,
+              gestureResponseDistance: { vertical: 300 },
+            }}
           />
         </RootStack.Navigator>
       </NavigationContainer>

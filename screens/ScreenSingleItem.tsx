@@ -10,6 +10,7 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from 'react-native';
 import shared from '../CommonStyles';
 import { MainScreenParamList } from './ScreenMain';
@@ -35,6 +36,14 @@ const ScreenSingleItem = ({ route }: Props) => {
     setLocalItem(updated);
   }
 
+  function updateName(val: string) {
+    update({ name: val });
+  }
+
+  function updateNote(val: string) {
+    update({ note: val });
+  }
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="position">
       <ScrollView>
@@ -48,7 +57,11 @@ const ScreenSingleItem = ({ route }: Props) => {
               <Text
                 style={styles.itemName}
                 onPress={() => {
-                  navigation.navigate('InputPopup');
+                  navigation.navigate('InputPopup', {
+                    value: item.name,
+                    fieldName: 'Name of the item',
+                    onChange: updateName,
+                  });
                 }}
               >
                 {item.name}
@@ -56,19 +69,21 @@ const ScreenSingleItem = ({ route }: Props) => {
               <Text style={styles.labelName}>{item.label}</Text>
             </View>
           </View>
-          <View style={styles.noteSection}>
-            <Text style={styles.sectionTitle}>Note</Text>
-            <TextInput
-              value={localItem.note}
-              editable
-              maxLength={1000}
-              multiline
-              numberOfLines={4}
-              placeholder="..."
-              style={styles.inputArea}
-              onChangeText={(text) => update({ note: text })}
-            />
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('InputPopup', {
+                value: item.note,
+                fieldName: 'Note',
+                onChange: updateNote,
+                isMultiLine: true,
+              });
+            }}
+          >
+            <View style={styles.noteSection}>
+              <Text style={styles.sectionTitle}>Note</Text>
+              <Text>{localItem.note}</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.noteSection}>
             <Text style={styles.sectionTitle}>Amount</Text>
             <NumericInput
@@ -131,10 +146,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     ...shared.normalText,
     marginBottom: 10,
-  },
-  inputArea: {
-    ...shared.inputArea,
-    flex: 1,
   },
   subText: {
     ...shared.secondaryText,
