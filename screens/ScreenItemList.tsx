@@ -4,6 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MainScreenParamList } from './ScreenMain';
 import ItemThumbnail from '../components/ItemThumbnail';
+import { useItems } from '../contexts/ItemsContext';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const COLUMN = 2;
@@ -17,7 +18,9 @@ type Props = {
 };
 
 export default function ItemList({ navigation, route }: Props) {
-  const { items } = route.params;
+  const { labelName } = route.params;
+  const { getItemsByLabel } = useItems();
+  const items = getItemsByLabel(labelName);
 
   return (
     <View style={styles.container}>

@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Main from './screens/ScreenMain';
 import { ItemsProvider } from './contexts/ItemsContext';
 import ScreenInputPopup from './screens/ScreenInputPopup';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export type RootScreenParamList = {
   Main: undefined;

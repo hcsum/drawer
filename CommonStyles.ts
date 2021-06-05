@@ -37,4 +37,11 @@ export default {
   inputArea: {
     borderRadius: 5,
   },
+  buttonBig: {
+    backgroundColor: '#6bb37e',
+    color: 'white',
+    flex: 1,
+    borderRadius,
+    padding: 10,
+  },
 };

@@ -7,11 +7,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import IconButton from '../components/IconButton';
 import { View } from 'react-native';
 import { TItem } from '../contexts/ItemsTypeDef';
+import { getNewItem } from '../utils/item';
 
 export type MainScreenParamList = {
   Home: undefined;
   ItemList: { labelName: string; items: TItem[] };
   ItemSingle: {
+    isNew?: boolean;
     item: TItem;
   };
 };
@@ -39,7 +41,15 @@ const MainScreen = () => {
                 <IconButton type="options" onPress={() => alert('haha')} />
               </View>
               <View style={{ paddingRight: 20 }}>
-                <IconButton type="add" onPress={() => alert('haha')} />
+                <IconButton
+                  type="add"
+                  onPress={() =>
+                    navigation.navigate('ItemSingle', {
+                      item: getNewItem(),
+                      isNew: true,
+                    })
+                  }
+                />
               </View>
             </View>
           ),

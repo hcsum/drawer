@@ -1,6 +1,6 @@
 # Drawer
 
-An app to help people sort out all the possessions they have
+An app to help people identify items truly valuable to them amoung all their possessions and help getting rid of the nonessentials.
 
 ## Todo
 
@@ -10,8 +10,6 @@ data
 
 UI
 
-- single item page: use popup modal for input fields (tap on a section to trigger the modal)
-
 Navigation
 
 - toClear list
@@ -19,7 +17,12 @@ Navigation
 
 feat
 
-- add an item
+- add an item 👷🏼‍♂️
 - notification for items exceed lastUsedDate
 - settings page
 - search items
+- take pictrue
+
+### Done
+
+- single item page: use popup modal for input fields (tap on a section to trigger the modal)
