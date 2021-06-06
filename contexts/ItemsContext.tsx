@@ -49,8 +49,11 @@ function useItems() {
   }, [items]);
 
   // ------------ methods ---------------
-  const getItemsByLabel = (label: string) =>
-    items.filter((item) => item.label === label);
+  const getItemsByLabel = (label: string | null) => {
+    if (label) return items.filter((item) => item.label === label);
+    return items;
+  };
+
   const getItemByID = (id: string) => items.filter((item) => item.id === id)[0];
   const setItems = (list: TItem[]) => dispatch({ type: 'SET', payload: list });
   const addItem = (item: TItem) => dispatch({ type: 'ADD', payload: item });

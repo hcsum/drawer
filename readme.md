@@ -16,7 +16,6 @@ UI
 navigation
 
 - toClear list
-- main page All items button
 
 feat
 
@@ -28,5 +27,6 @@ feat
 
 ### Done
 
+- main page All items button
 - add an item
 - single item page: use popup modal for input fields (tap on a section to trigger the modal)

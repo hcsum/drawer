@@ -85,7 +85,10 @@ const ScreenSingleItem = ({ route }: Props) => {
   function handleAdd() {
     addItem(localItem);
     navigation.dispatch(
-      StackActions.replace('ItemList', { labelName: localItem.label })
+      StackActions.replace('ItemList', {
+        label: localItem.label,
+        title: localItem.label,
+      })
     );
   }
 

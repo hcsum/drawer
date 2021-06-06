@@ -22,7 +22,7 @@ type Props = {
 };
 
 export default function KeepItemsScreen({ navigation }: Props) {
-  const { labelsWithTotal, getItemsByLabel, items } = useItems();
+  const { labelsWithTotal, items } = useItems();
 
   return (
     <View style={styles.container}>
@@ -31,7 +31,10 @@ export default function KeepItemsScreen({ navigation }: Props) {
           title="All items"
           number={items.length}
           onPress={() => {
-            alert('haha');
+            navigation.navigate('ItemList', {
+              title: 'All',
+              label: null,
+            });
           }}
           icon="all"
         />
@@ -47,8 +50,8 @@ export default function KeepItemsScreen({ navigation }: Props) {
                 <LabelThumbnail
                   onTap={() => {
                     navigation.navigate('ItemList', {
-                      labelName: item[0],
-                      items: getItemsByLabel(item[0]),
+                      title: item[0],
+                      label: item[0],
                     });
                   }}
                   width={(WINDOW_WIDTH - 60) / COLUMN}

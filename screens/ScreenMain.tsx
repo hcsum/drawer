@@ -11,7 +11,7 @@ import { getNewItem } from '../utils/item';
 
 export type MainScreenParamList = {
   Home: undefined;
-  ItemList: { labelName: string; items: TItem[] };
+  ItemList: { title: string; label: string | null };
   ItemSingle: {
     isNew?: boolean;
     item: TItem;
@@ -62,7 +62,9 @@ const MainScreen = () => {
       <Stack.Screen
         name="ItemList"
         component={ItemList}
-        options={({ route }) => ({ title: route.params.labelName })}
+        options={({ route }) => ({
+          title: route.params.title,
+        })}
       />
       <Stack.Screen name="ItemSingle" component={ItemSingle} />
     </Stack.Navigator>

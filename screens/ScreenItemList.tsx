@@ -18,9 +18,9 @@ type Props = {
 };
 
 export default function ItemList({ navigation, route }: Props) {
-  const { labelName } = route.params;
+  const { label } = route.params;
   const { getItemsByLabel } = useItems();
-  const items = getItemsByLabel(labelName);
+  const items = getItemsByLabel(label);
 
   return (
     <View style={styles.container}>
