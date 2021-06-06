@@ -25,7 +25,10 @@ const ItemThumbnail = ({ name, note, width, index, onTap }: IProps) => {
   return (
     <TouchableOpacity onPress={onTap}>
       <View style={containerStyle}>
-        <Image style={styles.thumbnail} source={require('../assets/keychron-k6.jpeg')} />
+        <Image
+          style={styles.thumbnail}
+          source={require('../assets/keychron-k6.jpeg')}
+        />
         <View style={styles.texts}>
           <Text>{name}</Text>
           <SubText>{truncate(note)}</SubText>

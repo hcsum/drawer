@@ -115,18 +115,20 @@ const ScreenSingleItem = ({ route }: Props) => {
                 >
                   {localItem.name || 'Name goes here'}
                 </Text>
-                <Text
-                  style={styles.labelName}
-                  onPress={() => {
-                    navigation.navigate('InputPopup', {
-                      value: localItem.label,
-                      fieldName: 'Label',
-                      onChange: updateLabel,
-                    });
-                  }}
-                >
-                  {localItem.label}
-                </Text>
+                {localItem.label && (
+                  <Text
+                    style={styles.labelName}
+                    onPress={() => {
+                      navigation.navigate('InputPopup', {
+                        value: localItem.label,
+                        fieldName: 'Label',
+                        onChange: updateLabel,
+                      });
+                    }}
+                  >
+                    {localItem.label}
+                  </Text>
+                )}
               </View>
             </View>
             <TouchableOpacity
@@ -153,21 +155,23 @@ const ScreenSingleItem = ({ route }: Props) => {
                 value={localItem.amount}
               />
             </View>
-            <View style={styles.noteSection}>
-              <Text style={styles.sectionTitle}>Date Acquired</Text>
-              <DateTimePicker
-                value={new Date(localItem.dateAcquired)}
-                textColor="black"
-                mode="date"
-                display="default"
-                onChange={(_, date) =>
-                  update({
-                    dateAcquired: date?.toISOString(),
-                  })
-                }
-              />
-              <Text style={styles.subText}>6 years ago</Text>
-            </View>
+            {localItem.dateAcquired && (
+              <View style={styles.noteSection}>
+                <Text style={styles.sectionTitle}>Date Acquired</Text>
+                <DateTimePicker
+                  value={new Date(localItem.dateAcquired)}
+                  textColor="black"
+                  mode="date"
+                  display="default"
+                  onChange={(_, date) =>
+                    update({
+                      dateAcquired: date?.toISOString(),
+                    })
+                  }
+                />
+                <Text style={styles.subText}>6 years ago</Text>
+              </View>
+            )}
             {localItem.dateLastUsed && (
               <View style={styles.noteSection}>
                 <Text style={styles.sectionTitle}>Last Time Used</Text>

@@ -28,7 +28,7 @@ export default function ItemList({ navigation, route }: Props) {
         style={styles.labelList}
         data={items}
         numColumns={COLUMN}
-        keyExtractor={(item) => item.label}
+        keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => {
           return (
             <View>

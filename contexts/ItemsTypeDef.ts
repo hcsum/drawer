@@ -1,11 +1,12 @@
 export type TItem = {
   name: string;
-  note?: string;
+  note: string;
   amount: number;
   img: string | undefined;
   label: string;
+  dateAcquired?: string;
   dateLastUsed?: string;
-  dateAcquired: string;
+  isToBeRemoved?: boolean;
   id: string;
 };
 
@@ -25,6 +26,219 @@ type ActionUpdate = {
   type: 'UPDATE';
   payload: TItem;
 };
+
+export const MOCK_DATA_CLEAR: TItem[] = [
+  {
+    name: 'Badminton racket',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '897656556',
+    isToBeRemoved: true,
+    label: '',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '897656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '197656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '297656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '397656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '497656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '597656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '697656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '797656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '897656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '997656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '097656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '117656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '127656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '137656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '147656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '157656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '167656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '177656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '187656559',
+  },
+  {
+    name: 'some shoes',
+    isToBeRemoved: true,
+    label: '',
+    note: '',
+    amount: 1,
+    img: undefined,
+    dateLastUsed: '2021-01-30',
+    id: '197656559',
+  },
+];
 
 export const MOCK_DATA: TItem[] = [
   {
@@ -99,4 +313,5 @@ export const MOCK_DATA: TItem[] = [
     dateAcquired: '2020-08-20',
     id: '891156090',
   },
+  ...MOCK_DATA_CLEAR,
 ];

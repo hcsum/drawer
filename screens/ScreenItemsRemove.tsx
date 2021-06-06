@@ -2,32 +2,10 @@ import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
-import LabelThumbnail from '../components/LabelThumbnail';
+import ItemThumbnail from '../components/ItemThumbnail';
+import { useItems } from '../contexts/ItemsContext';
 import { HomeTabStackParamList } from './NavHome';
 import { MainScreenParamList } from './ScreenMain';
-
-const ItemsByLabel = [
-  {
-    label: 'Wardrobe',
-    total: 36,
-  },
-  {
-    label: 'Kitchen',
-    total: 12,
-  },
-  {
-    label: 'Desk',
-    total: 8,
-  },
-  {
-    label: 'Bed',
-    total: 5,
-  },
-  {
-    label: 'Sport',
-    total: 15,
-  },
-];
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const COLUMN = 2;
@@ -44,23 +22,24 @@ type Props = {
 };
 
 export default function RemoveItemsScreen({ navigation }: Props) {
+  const { itemsToBeRemoved } = useItems();
+
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.labelList}
-        data={ItemsByLabel}
+        data={itemsToBeRemoved}
         numColumns={COLUMN}
-        keyExtractor={(item) => item.label}
+        keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => {
           return (
             <View>
-              <LabelThumbnail
+              <ItemThumbnail
                 onTap={() => {
-                  // navigation.navigate('ItemList', {items});
+                  navigation.navigate('ItemSingle', { item });
                 }}
                 width={(WINDOW_WIDTH - 60) / COLUMN}
-                name={item.label}
-                total={item.total}
+                name={item.name}
                 index={index}
               />
             </View>
@@ -75,11 +54,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    paddingBottom: 80,
   },
   touchBarWrap: {
     marginBottom: 20,
   },
   labelList: {
-    // marginTop: 20,
+    paddingBottom: 180,
   },
 });

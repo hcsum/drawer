@@ -37,8 +37,10 @@ function useItems() {
   const [items, dispatch] = context;
 
   // ------------ states ---------------
+  const itemsToKeep = items.filter((item) => !item.isToBeRemoved);
+
   const labelsWithTotal = useMemo(() => {
-    const map = items.reduce((accu, item) => {
+    const map = itemsToKeep.reduce((accu, item) => {
       if (!accu[item.label]) accu[item.label] = 1;
       else accu[item.label]++;
 
@@ -47,6 +49,8 @@ function useItems() {
 
     return Object.entries(map);
   }, [items]);
+
+  const itemsToBeRemoved = items.filter((item) => item.isToBeRemoved);
 
   // ------------ methods ---------------
   const getItemsByLabel = (label: string | null) => {
@@ -61,8 +65,9 @@ function useItems() {
     dispatch({ type: 'UPDATE', payload: item });
 
   return {
-    items,
+    items: itemsToKeep,
     labelsWithTotal,
+    itemsToBeRemoved,
     getItemsByLabel,
     getItemByID,
     setItems,
