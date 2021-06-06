@@ -114,7 +114,7 @@ const ScreenSingleItem = ({ route }: Props) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('InputPopup', {
-                  value: item.note,
+                  value: localItem.note,
                   fieldName: 'Note',
                   onChange: updateNote,
                   isMultiLine: true,
@@ -138,7 +138,7 @@ const ScreenSingleItem = ({ route }: Props) => {
             <View style={styles.noteSection}>
               <Text style={styles.sectionTitle}>Date Acquired</Text>
               <DateTimePicker
-                value={new Date(item.dateAcquired)}
+                value={new Date(localItem.dateAcquired)}
                 textColor="black"
                 mode="date"
                 display="default"
@@ -150,11 +150,11 @@ const ScreenSingleItem = ({ route }: Props) => {
               />
               <Text style={styles.subText}>6 years ago</Text>
             </View>
-            {item.dateLastUsed && (
+            {localItem.dateLastUsed && (
               <View style={styles.noteSection}>
                 <Text style={styles.sectionTitle}>Last Time Used</Text>
                 <DateTimePicker
-                  value={new Date(item.dateLastUsed)}
+                  value={new Date(localItem.dateLastUsed)}
                   textColor="black"
                   mode="date"
                   display="default"
