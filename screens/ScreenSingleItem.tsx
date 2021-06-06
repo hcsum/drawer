@@ -2,10 +2,11 @@ import {
   RouteProp,
   useNavigation,
   StackActions,
+  EventArg,
 } from '@react-navigation/native';
 import NumericInput from 'react-native-numeric-input';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -35,29 +36,35 @@ const ScreenSingleItem = ({ route }: Props) => {
   const { updateItem, addItem } = useItems();
   const [localItem, setLocalItem] = useState(item);
 
-  navigation.addListener('beforeRemove', (e) => {
-    const isSaveClicked = e.data.action.type === 'REPLACE';
-    if (!isNew || isSaveClicked) return;
+  useEffect(() => {
+    const onGoBack = (e: NavEvent) => {
+      const isSaveClicked = e.data.action.type === 'REPLACE';
+      if (!isNew || isSaveClicked) return;
 
-    e.preventDefault();
+      e.preventDefault();
 
-    Alert.alert(
-      'Discard changes?',
-      'You have unsaved changes. Are you sure to discard them and leave the screen?',
-      [
-        { text: "Don't leave", style: 'cancel', onPress: () => {} },
-        {
-          text: 'Discard',
-          style: 'destructive',
-          // This will continue the action that had triggered the removal of the screen
-          onPress: () => navigation.dispatch(e.data.action),
-        },
-      ]
-    );
-  });
+      Alert.alert(
+        'Quit adding?',
+        'If you have unsaved changes, leaving the screen will discard them.',
+        [
+          { text: "Don't leave", style: 'cancel', onPress: () => {} },
+          {
+            text: 'Leave',
+            style: 'destructive',
+            // This will continue the action that had triggered the removal of the screen
+            onPress: () => navigation.dispatch(e.data.action),
+          },
+        ]
+      );
+    };
+
+    navigation.addListener('beforeRemove', onGoBack);
+
+    return () => navigation.removeListener('beforeRemove', onGoBack);
+  }, []);
 
   function update(field: Partial<TItem>) {
-    const updated = { ...item, ...field };
+    const updated = { ...localItem, ...field };
 
     updateItem(updated);
     setLocalItem(updated);
@@ -93,15 +100,15 @@ const ScreenSingleItem = ({ route }: Props) => {
                   style={styles.itemName}
                   onPress={() => {
                     navigation.navigate('InputPopup', {
-                      value: item.name,
+                      value: localItem.name,
                       fieldName: 'Name',
                       onChange: updateName,
                     });
                   }}
                 >
-                  {item.name || 'Name goes here'}
+                  {localItem.name || 'Name goes here'}
                 </Text>
-                <Text style={styles.labelName}>{item.label}</Text>
+                <Text style={styles.labelName}>{localItem.label}</Text>
               </View>
             </View>
             <TouchableOpacity
@@ -131,12 +138,15 @@ const ScreenSingleItem = ({ route }: Props) => {
             <View style={styles.noteSection}>
               <Text style={styles.sectionTitle}>Date Acquired</Text>
               <DateTimePicker
-                testID="dateTimePicker"
                 value={new Date(item.dateAcquired)}
                 textColor="black"
                 mode="date"
                 display="default"
-                onChange={(date) => console.log(date)}
+                onChange={(_, date) =>
+                  update({
+                    dateAcquired: date?.toISOString(),
+                  })
+                }
               />
               <Text style={styles.subText}>6 years ago</Text>
             </View>
@@ -144,12 +154,15 @@ const ScreenSingleItem = ({ route }: Props) => {
               <View style={styles.noteSection}>
                 <Text style={styles.sectionTitle}>Last Time Used</Text>
                 <DateTimePicker
-                  testID="dateTimePicker"
                   value={new Date(item.dateLastUsed)}
                   textColor="black"
                   mode="date"
                   display="default"
-                  onChange={(date) => console.log(date)}
+                  onChange={(_, date) =>
+                    update({
+                      dateLastUsed: date?.toISOString(),
+                    })
+                  }
                 />
                 <Text style={styles.subText}>6 years ago</Text>
               </View>
@@ -201,5 +214,18 @@ const styles = StyleSheet.create({
     ...shared.buttonBig,
   },
 });
+
+type NavEvent = EventArg<
+  'beforeRemove',
+  true,
+  {
+    action: Readonly<{
+      type: string;
+      payload?: object | undefined;
+      source?: string | undefined;
+      target?: string | undefined;
+    }>;
+  }
+>;
 
 export default ScreenSingleItem;

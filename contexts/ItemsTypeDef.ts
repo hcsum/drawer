@@ -4,7 +4,7 @@ export type TItem = {
   amount: number;
   img: string | undefined;
   label: string;
-  dateLastUsed?: number;
+  dateLastUsed?: string;
   dateAcquired: string;
   id: string;
 };
