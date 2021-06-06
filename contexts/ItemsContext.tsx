@@ -54,8 +54,8 @@ function useItems() {
 
   // ------------ methods ---------------
   const getItemsByLabel = (label: string | null) => {
-    if (label) return items.filter((item) => item.label === label);
-    return items;
+    if (label) return itemsToKeep.filter((item) => item.label === label);
+    return itemsToKeep;
   };
 
   const getItemByID = (id: string) => items.filter((item) => item.id === id)[0];

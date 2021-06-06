@@ -26,7 +26,7 @@ export default function KeepItemsScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.touchBarWrap}>
+      <View style={styles.allItems}>
         <TouchBar
           title="All items"
           number={items.length}
@@ -72,14 +72,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    paddingBottom: 5,
   },
-  touchBarWrap: {
+  allItems: {
     marginBottom: 20,
   },
   labelList: {
-    flex: 1,
-    marginTop: 20,
-    paddingBottom: 60,
+    marginBottom: 150,
   },
 });

@@ -115,7 +115,7 @@ const ScreenSingleItem = ({ route }: Props) => {
                 >
                   {localItem.name || 'Name goes here'}
                 </Text>
-                {localItem.label && (
+                {!!localItem.label && (
                   <Text
                     style={styles.labelName}
                     onPress={() => {
