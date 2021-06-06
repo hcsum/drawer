@@ -10,19 +10,23 @@ data
 
 UI
 
-Navigation
+- improve label editing for new/existing items
+- settings page
+
+navigation
 
 - toClear list
 - main page All items button
 
 feat
 
-- add an item 👷🏼‍♂️
 - notification for items exceed lastUsedDate
-- settings page
+- light/dark theme
+- backup/import data
 - search items
 - take pictrue
 
 ### Done
 
+- add an item
 - single item page: use popup modal for input fields (tap on a section to trigger the modal)

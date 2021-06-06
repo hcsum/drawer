@@ -78,6 +78,10 @@ const ScreenSingleItem = ({ route }: Props) => {
     update({ note: val });
   }
 
+  function updateLabel(val: string) {
+    update({ label: val });
+  }
+
   function handleAdd() {
     addItem(localItem);
     navigation.dispatch(
@@ -108,7 +112,18 @@ const ScreenSingleItem = ({ route }: Props) => {
                 >
                   {localItem.name || 'Name goes here'}
                 </Text>
-                <Text style={styles.labelName}>{localItem.label}</Text>
+                <Text
+                  style={styles.labelName}
+                  onPress={() => {
+                    navigation.navigate('InputPopup', {
+                      value: localItem.label,
+                      fieldName: 'Label',
+                      onChange: updateLabel,
+                    });
+                  }}
+                >
+                  {localItem.label}
+                </Text>
               </View>
             </View>
             <TouchableOpacity
