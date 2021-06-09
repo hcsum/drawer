@@ -8,6 +8,7 @@ export function getNewItem(): TItem {
     img: undefined,
     label: 'Not labeled',
     dateAcquired: new Date().toISOString(),
+    dateLastUsed: new Date().toISOString(),
     id: new Date().getTime().toString(),
   };
 }

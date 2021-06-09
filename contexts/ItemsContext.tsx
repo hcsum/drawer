@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useMemo, useReducer } from 'react';
 import { getData, storeData } from '../utils/Storage';
-import { MOCK_DATA, TItem, TItemsAction } from './ItemsTypeDef';
+import { MOCK_DATA, PRESET_LABEL, TItem, TItemsAction } from './ItemsTypeDef';
 
 function itemsReducer(state: TItem[], action: TItemsAction) {
   switch (action.type) {
@@ -37,7 +37,12 @@ function useItems() {
   const [items, dispatch] = context;
 
   // ------------ states ---------------
-  const itemsToKeep = items.filter((item) => !item.isToBeRemoved);
+  const itemsToKeep = items.filter(
+    (item) => item.label !== PRESET_LABEL.TO_BE_REMOVED
+  );
+  const itemsToBeRemoved = items.filter(
+    (item) => item.label === PRESET_LABEL.TO_BE_REMOVED
+  );
 
   const labelsWithTotal = useMemo(() => {
     const map = itemsToKeep.reduce((accu, item) => {
@@ -49,8 +54,6 @@ function useItems() {
 
     return Object.entries(map);
   }, [items]);
-
-  const itemsToBeRemoved = items.filter((item) => item.isToBeRemoved);
 
   // ------------ methods ---------------
   const getItemsByLabel = (label: string | null) => {
