@@ -7,6 +7,7 @@ import {
 import NumericInput from 'react-native-numeric-input';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useEffect, useState } from 'react';
+import { Picker } from '@react-native-picker/picker';
 import {
   View,
   Text,
@@ -22,7 +23,12 @@ import {
 import shared from '../CommonStyles';
 import { MainScreenParamList } from './ScreenMain';
 import { useItems } from '../contexts/ItemsContext';
-import { PRESET_LABEL, TItem } from '../contexts/ItemsTypeDef';
+import {
+  PRESET_LABEL,
+  PROBATION_PERIOD,
+  PROBATION_PERIOD_OPTIONS,
+  TItem,
+} from '../contexts/ItemsTypeDef';
 
 type routeProp = RouteProp<MainScreenParamList, 'ItemSingle'>;
 
@@ -101,25 +107,40 @@ const ScreenSingleItem = ({ route }: Props) => {
   function renderLabelSpecificFields() {
     if (localItem.label === PRESET_LABEL.TO_BE_REMOVED)
       return (
-        <View style={styles.noteSection}>
-          <Text style={styles.sectionTitle}>Last Time Used</Text>
-          <DateTimePicker
-            value={new Date(localItem.dateLastUsed || '')}
-            textColor="black"
-            mode="date"
-            display="default"
-            onChange={(_, date) =>
-              update({
-                dateLastUsed: date?.toISOString(),
-              })
-            }
-          />
-          <Text style={styles.subText}>6 years ago</Text>
-        </View>
+        <>
+          <View style={styles.sectionWrap}>
+            <Text style={styles.sectionTitle}>Last Time Used</Text>
+            <DateTimePicker
+              value={new Date(localItem.dateLastUsed || '')}
+              textColor="black"
+              mode="date"
+              display="default"
+              onChange={(_, date) =>
+                update({
+                  dateLastUsed: date?.toISOString(),
+                })
+              }
+            />
+            <Text style={styles.subText}>6 years ago</Text>
+          </View>
+          <View style={styles.sectionWrap}>
+            <Text style={styles.sectionTitle}>Probation Period</Text>
+            <Picker
+              selectedValue={localItem.probationPeriod}
+              onValueChange={(val) =>
+                update({ probationPeriod: val as PROBATION_PERIOD })
+              }
+            >
+              {PROBATION_PERIOD_OPTIONS.map((option) => (
+                <Picker.Item label={option.label} value={option.value} />
+              ))}
+            </Picker>
+          </View>
+        </>
       );
 
     return (
-      <View style={styles.noteSection}>
+      <View style={styles.sectionWrap}>
         <Text style={styles.sectionTitle}>Date Acquired</Text>
         <DateTimePicker
           value={new Date(localItem.dateAcquired || '')}
@@ -184,12 +205,12 @@ const ScreenSingleItem = ({ route }: Props) => {
                 });
               }}
             >
-              <View style={styles.noteSection}>
+              <View style={styles.sectionWrap}>
                 <Text style={styles.sectionTitle}>Note</Text>
                 <Text>{localItem.note || '...'}</Text>
               </View>
             </TouchableOpacity>
-            <View style={styles.noteSection}>
+            <View style={styles.sectionWrap}>
               <Text style={styles.sectionTitle}>Amount</Text>
               <NumericInput
                 onChange={(value) => update({ amount: value })}
@@ -230,7 +251,7 @@ const styles = StyleSheet.create({
   labelName: {
     ...shared.secondaryText,
   },
-  noteSection: {
+  sectionWrap: {
     ...shared.section,
     minHeight: 100,
   },

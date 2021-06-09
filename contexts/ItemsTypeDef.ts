@@ -3,7 +3,18 @@ export enum PRESET_LABEL {
   NOT_LABELED = 'Not labeled',
 }
 
+export enum PROBATION_PERIOD {
+  THREE_MONTH = 3,
+  SIX_MONTH = 6,
+}
+
+export const PROBATION_PERIOD_OPTIONS = [
+  { value: PROBATION_PERIOD.THREE_MONTH, label: '3 months' },
+  { value: PROBATION_PERIOD.SIX_MONTH, label: '6 months' },
+];
+
 export type TItem = {
+  id: string;
   name: string;
   note: string;
   amount: number;
@@ -11,7 +22,7 @@ export type TItem = {
   label: string | PRESET_LABEL;
   dateAcquired: string | undefined;
   dateLastUsed: string | undefined;
-  id: string;
+  probationPeriod: PROBATION_PERIOD | undefined;
 };
 
 export type TItemsAction = ActionSet | ActionAdd | ActionUpdate;
@@ -31,7 +42,7 @@ type ActionUpdate = {
   payload: TItem;
 };
 
-export const MOCK_DATA_CLEAR: TItem[] = [
+const MOCK_DATA_CLEAR: TItem[] = [
   {
     name: 'Badminton racket',
     note: '',
@@ -39,6 +50,7 @@ export const MOCK_DATA_CLEAR: TItem[] = [
     img: undefined,
     dateAcquired: undefined,
     dateLastUsed: '2021-01-30',
+    probationPeriod: undefined,
     id: '897656556',
     label: PRESET_LABEL.TO_BE_REMOVED,
   },
@@ -49,6 +61,7 @@ export const MOCK_DATA_CLEAR: TItem[] = [
     img: undefined,
     dateAcquired: undefined,
     dateLastUsed: '2021-01-30',
+    probationPeriod: undefined,
     id: '897656559',
     label: PRESET_LABEL.TO_BE_REMOVED,
   },
@@ -59,6 +72,7 @@ export const MOCK_DATA_CLEAR: TItem[] = [
     img: undefined,
     dateAcquired: undefined,
     dateLastUsed: '2021-01-30',
+    probationPeriod: undefined,
     id: '197656559',
     label: PRESET_LABEL.TO_BE_REMOVED,
   },
@@ -73,6 +87,7 @@ export const MOCK_DATA: TItem[] = [
     label: 'Gadget',
     dateAcquired: '2021-01-30',
     dateLastUsed: undefined,
+    probationPeriod: undefined,
     id: '897656556',
   },
   {
@@ -83,6 +98,7 @@ export const MOCK_DATA: TItem[] = [
     label: 'Gadget',
     dateAcquired: '2021-03-16',
     dateLastUsed: undefined,
+    probationPeriod: undefined,
     id: '897656588',
   },
   {
@@ -93,6 +109,7 @@ export const MOCK_DATA: TItem[] = [
     label: 'Wardrobe',
     dateAcquired: '2021-04-05',
     dateLastUsed: undefined,
+    probationPeriod: undefined,
     id: '897656558',
   },
   {
@@ -103,6 +120,7 @@ export const MOCK_DATA: TItem[] = [
     label: 'Wardrobe',
     dateAcquired: '2021-04-05',
     dateLastUsed: undefined,
+    probationPeriod: undefined,
     id: '897656555',
   },
   {
@@ -113,6 +131,7 @@ export const MOCK_DATA: TItem[] = [
     label: 'Sport',
     dateAcquired: '2020-08-20',
     dateLastUsed: undefined,
+    probationPeriod: undefined,
     id: '897656511',
   },
   {
@@ -123,6 +142,7 @@ export const MOCK_DATA: TItem[] = [
     label: 'Daily',
     dateAcquired: '2020-08-20',
     dateLastUsed: undefined,
+    probationPeriod: undefined,
     id: '897656590',
   },
   {
@@ -133,6 +153,7 @@ export const MOCK_DATA: TItem[] = [
     label: 'Gadget',
     dateAcquired: '2020-08-20',
     dateLastUsed: undefined,
+    probationPeriod: undefined,
     id: '891156590',
   },
   {
@@ -143,6 +164,7 @@ export const MOCK_DATA: TItem[] = [
     label: 'Daily',
     dateAcquired: '2020-08-20',
     dateLastUsed: undefined,
+    probationPeriod: undefined,
     id: '891156090',
   },
   ...MOCK_DATA_CLEAR,

@@ -36,7 +36,6 @@ function useItems() {
 
   const [items, dispatch] = context;
 
-  // ------------ states ---------------
   const itemsToKeep = items.filter(
     (item) => item.label !== PRESET_LABEL.TO_BE_REMOVED
   );
@@ -55,7 +54,6 @@ function useItems() {
     return Object.entries(map);
   }, [items]);
 
-  // ------------ methods ---------------
   const getItemsByLabel = (label: string | null) => {
     if (label) return itemsToKeep.filter((item) => item.label === label);
     return itemsToKeep;
