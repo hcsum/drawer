@@ -17,3 +17,26 @@ export function getNewItem(): TItem {
     id: new Date().getTime().toString(),
   };
 }
+
+export function getLastUseSince(date: string) {
+  const now = new Date().getTime();
+  const lastUsedAt = new Date(date).getTime();
+
+  const gap = now - lastUsedAt;
+
+  const gapInDay = gap / 1000 / 60 / 60 / 24;
+
+  if (Math.ceil(gapInDay) < 7) return Math.ceil(gapInDay) + ' days ago';
+
+  const gapInWeek = gapInDay / 7;
+
+  if (Math.ceil(gapInWeek) <= 6) return Math.ceil(gapInWeek) + ' weeks ago';
+
+  const gapInMonth = gapInWeek / 4;
+
+  if (Math.ceil(gapInMonth) < 12) return Math.ceil(gapInMonth) + ' months ago';
+
+  const gapInYear = gapInMonth / 12;
+
+  return Math.ceil(gapInYear) + ' years ago';
+}

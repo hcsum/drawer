@@ -35,6 +35,8 @@ export default function RemoveItemsScreen({ navigation }: Props) {
           return (
             <View>
               <ItemThumbnail
+                isToBeRemoved
+                timeLastUsed={item.dateLastUsed}
                 onTap={() => {
                   navigation.navigate('ItemSingle', { item });
                 }}
