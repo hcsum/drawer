@@ -4,6 +4,10 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ## Todo
 
+architectrue
+
+- use label to distinguish to keep and to be removed items
+
 data
 
 - persist user inputs
@@ -12,6 +16,7 @@ UI
 
 - improve label editing for new/existing items
 - settings page
+- distinguish keep items and remove items in singleItem page
 
 navigation
 

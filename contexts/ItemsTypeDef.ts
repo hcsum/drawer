@@ -9,8 +9,8 @@ export type TItem = {
   amount: number;
   img: string | undefined;
   label: string | PRESET_LABEL;
-  dateAcquired?: string;
-  dateLastUsed?: string;
+  dateAcquired: string | undefined;
+  dateLastUsed: string | undefined;
   id: string;
 };
 
@@ -72,6 +72,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Gadget',
     dateAcquired: '2021-01-30',
+    dateLastUsed: undefined,
     id: '897656556',
   },
   {
@@ -81,6 +82,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Gadget',
     dateAcquired: '2021-03-16',
+    dateLastUsed: undefined,
     id: '897656588',
   },
   {
@@ -90,6 +92,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Wardrobe',
     dateAcquired: '2021-04-05',
+    dateLastUsed: undefined,
     id: '897656558',
   },
   {
@@ -99,6 +102,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Wardrobe',
     dateAcquired: '2021-04-05',
+    dateLastUsed: undefined,
     id: '897656555',
   },
   {
@@ -108,6 +112,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Sport',
     dateAcquired: '2020-08-20',
+    dateLastUsed: undefined,
     id: '897656511',
   },
   {
@@ -117,6 +122,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Daily',
     dateAcquired: '2020-08-20',
+    dateLastUsed: undefined,
     id: '897656590',
   },
   {
@@ -126,6 +132,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Gadget',
     dateAcquired: '2020-08-20',
+    dateLastUsed: undefined,
     id: '891156590',
   },
   {
@@ -135,6 +142,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Daily',
     dateAcquired: '2020-08-20',
+    dateLastUsed: undefined,
     id: '891156090',
   },
   ...MOCK_DATA_CLEAR,

@@ -22,7 +22,7 @@ import {
 import shared from '../CommonStyles';
 import { MainScreenParamList } from './ScreenMain';
 import { useItems } from '../contexts/ItemsContext';
-import { TItem } from '../contexts/ItemsTypeDef';
+import { PRESET_LABEL, TItem } from '../contexts/ItemsTypeDef';
 
 type routeProp = RouteProp<MainScreenParamList, 'ItemSingle'>;
 
@@ -84,11 +84,56 @@ const ScreenSingleItem = ({ route }: Props) => {
 
   function handleAdd() {
     addItem(localItem);
+
+    if (localItem.label === PRESET_LABEL.TO_BE_REMOVED) {
+      navigation.dispatch(StackActions.replace('Home', { screen: 'Clear' }));
+      return;
+    }
+
     navigation.dispatch(
       StackActions.replace('ItemList', {
         label: localItem.label,
         title: localItem.label,
       })
+    );
+  }
+
+  function renderLabelSpecificFields() {
+    if (localItem.label === PRESET_LABEL.TO_BE_REMOVED)
+      return (
+        <View style={styles.noteSection}>
+          <Text style={styles.sectionTitle}>Last Time Used</Text>
+          <DateTimePicker
+            value={new Date(localItem.dateLastUsed || '')}
+            textColor="black"
+            mode="date"
+            display="default"
+            onChange={(_, date) =>
+              update({
+                dateLastUsed: date?.toISOString(),
+              })
+            }
+          />
+          <Text style={styles.subText}>6 years ago</Text>
+        </View>
+      );
+
+    return (
+      <View style={styles.noteSection}>
+        <Text style={styles.sectionTitle}>Date Acquired</Text>
+        <DateTimePicker
+          value={new Date(localItem.dateAcquired || '')}
+          textColor="black"
+          mode="date"
+          display="default"
+          onChange={(_, date) =>
+            update({
+              dateAcquired: date?.toISOString(),
+            })
+          }
+        />
+        <Text style={styles.subText}>6 years ago</Text>
+      </View>
     );
   }
 
@@ -115,20 +160,18 @@ const ScreenSingleItem = ({ route }: Props) => {
                 >
                   {localItem.name || 'Name goes here'}
                 </Text>
-                {!!localItem.label && (
-                  <Text
-                    style={styles.labelName}
-                    onPress={() => {
-                      navigation.navigate('InputPopup', {
-                        value: localItem.label,
-                        fieldName: 'Label',
-                        onChange: updateLabel,
-                      });
-                    }}
-                  >
-                    {localItem.label}
-                  </Text>
-                )}
+                <Text
+                  style={styles.labelName}
+                  onPress={() => {
+                    navigation.navigate('InputPopup', {
+                      value: localItem.label,
+                      fieldName: 'Label',
+                      onChange: updateLabel,
+                    });
+                  }}
+                >
+                  {localItem.label}
+                </Text>
               </View>
             </View>
             <TouchableOpacity
@@ -155,40 +198,7 @@ const ScreenSingleItem = ({ route }: Props) => {
                 value={localItem.amount}
               />
             </View>
-            {localItem.dateAcquired && (
-              <View style={styles.noteSection}>
-                <Text style={styles.sectionTitle}>Date Acquired</Text>
-                <DateTimePicker
-                  value={new Date(localItem.dateAcquired)}
-                  textColor="black"
-                  mode="date"
-                  display="default"
-                  onChange={(_, date) =>
-                    update({
-                      dateAcquired: date?.toISOString(),
-                    })
-                  }
-                />
-                <Text style={styles.subText}>6 years ago</Text>
-              </View>
-            )}
-            {localItem.dateLastUsed && (
-              <View style={styles.noteSection}>
-                <Text style={styles.sectionTitle}>Last Time Used</Text>
-                <DateTimePicker
-                  value={new Date(localItem.dateLastUsed)}
-                  textColor="black"
-                  mode="date"
-                  display="default"
-                  onChange={(_, date) =>
-                    update({
-                      dateLastUsed: date?.toISOString(),
-                    })
-                  }
-                />
-                <Text style={styles.subText}>6 years ago</Text>
-              </View>
-            )}
+            {renderLabelSpecificFields()}
           </View>
           {isNew && (
             <View style={styles.saveBtn}>

@@ -1,4 +1,4 @@
-import { TItem } from '../contexts/ItemsTypeDef';
+import { PRESET_LABEL, TItem } from '../contexts/ItemsTypeDef';
 
 export function getNewItem(): TItem {
   return {
@@ -6,7 +6,7 @@ export function getNewItem(): TItem {
     note: '',
     amount: 1,
     img: undefined,
-    label: 'Not labeled',
+    label: PRESET_LABEL.NOT_LABELED,
     dateAcquired: new Date().toISOString(),
     dateLastUsed: new Date().toISOString(),
     id: new Date().getTime().toString(),
