@@ -51,7 +51,7 @@ const MOCK_DATA_CLEAR: TItem[] = [
     dateAcquired: undefined,
     dateLastUsed: '2021-01-30',
     probationPeriod: undefined,
-    id: '897656556',
+    id: '297656556',
     label: PRESET_LABEL.TO_BE_REMOVED,
   },
   {
@@ -62,7 +62,7 @@ const MOCK_DATA_CLEAR: TItem[] = [
     dateAcquired: undefined,
     dateLastUsed: '2021-01-30',
     probationPeriod: undefined,
-    id: '897656559',
+    id: '897656999',
     label: PRESET_LABEL.TO_BE_REMOVED,
   },
   {

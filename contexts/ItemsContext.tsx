@@ -12,16 +12,16 @@ function itemsReducer(state: TItem[], action: TItemsAction) {
       return [...state, action.payload];
     }
     case 'UPDATE': {
-      const { id } = action.payload;
+      const { payload } = action;
 
-      // let's try if directly mutating the item object without updating it in the array works
-      // it works...
-      const item = state.find((it) => it.id === id);
+      // it turns out: you need to rebuild the array by removing the old item and adding it again.
+      // https://stackoverflow.com/questions/57719325/how-to-update-an-array-within-object-with-usereducer
+      // otherwise strange things happen, like an extra item appears with identical properties
+      const arr = [...state];
+      const idx = arr.findIndex((item) => item.id === payload.id);
+      arr.splice(idx, 1, payload);
 
-      if (item) Object.assign(item, action.payload);
-
-      // so even the obj is the same, returning a new array is enough to tirgger a rerender?
-      return [...state];
+      return arr;
     }
   }
 }
