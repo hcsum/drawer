@@ -19,7 +19,7 @@ function itemsReducer(state: TItem[], action: TItemsAction) {
       // otherwise strange things happen, like an extra item appears with identical properties
       const arr = [...state];
       const idx = arr.findIndex((item) => item.id === payload.id);
-      arr.splice(idx, 1, payload);
+      if (idx >= 0) arr.splice(idx, 1, payload);
 
       return arr;
     }
