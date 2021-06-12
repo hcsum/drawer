@@ -39,9 +39,13 @@ function useItems() {
   const itemsToKeep = items.filter(
     (item) => item.label !== PRESET_LABEL.TO_BE_REMOVED
   );
-  const itemsToBeRemoved = items.filter(
-    (item) => item.label === PRESET_LABEL.TO_BE_REMOVED
-  );
+  const itemsToBeRemoved = items
+    .filter((item) => item.label === PRESET_LABEL.TO_BE_REMOVED)
+    .sort(
+      (item1, item2) =>
+        new Date(item1.dateLastUsed as string).getTime() -
+        new Date(item2.dateLastUsed as string).getTime()
+    );
 
   const labelsWithTotal = useMemo(() => {
     const map = itemsToKeep.reduce((accu, item) => {

@@ -132,7 +132,11 @@ const ScreenSingleItem = ({ route }: Props) => {
               }
             >
               {PROBATION_PERIOD_OPTIONS.map((option) => (
-                <Picker.Item label={option.label} value={option.value} />
+                <Picker.Item
+                  label={option.label}
+                  value={option.value}
+                  key={option.value}
+                />
               ))}
             </Picker>
           </View>

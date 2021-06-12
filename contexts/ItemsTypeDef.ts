@@ -4,8 +4,8 @@ export enum PRESET_LABEL {
 }
 
 export enum PROBATION_PERIOD {
-  THREE_MONTH = 3,
-  SIX_MONTH = 6,
+  THREE_MONTH = 3 * 1000 * 60 * 60 * 24 * 30,
+  SIX_MONTH = 6 * 1000 * 60 * 60 * 24 * 30,
 }
 
 export const PROBATION_PERIOD_OPTIONS = [
@@ -60,7 +60,7 @@ const MOCK_DATA_CLEAR: TItem[] = [
     amount: 1,
     img: undefined,
     dateAcquired: undefined,
-    dateLastUsed: '2021-01-30',
+    dateLastUsed: '2020-06-30',
     probationPeriod: undefined,
     id: '297656999',
     label: PRESET_LABEL.TO_BE_REMOVED,
@@ -71,7 +71,7 @@ const MOCK_DATA_CLEAR: TItem[] = [
     amount: 1,
     img: undefined,
     dateAcquired: undefined,
-    dateLastUsed: '2021-01-30',
+    dateLastUsed: '2021-04-10',
     probationPeriod: undefined,
     id: '197656559',
     label: PRESET_LABEL.TO_BE_REMOVED,

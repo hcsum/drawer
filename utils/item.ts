@@ -40,3 +40,11 @@ export function getLastUseSince(date: string) {
 
   return Math.ceil(gapInYear) + ' years ago';
 }
+
+export function checkIsExpired(
+  lastDateUsed: string,
+  probationPeriod: PROBATION_PERIOD
+) {
+  const now = new Date().getTime();
+  return now - new Date(lastDateUsed).getTime() > probationPeriod;
+}
