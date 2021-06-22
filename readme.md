@@ -22,7 +22,6 @@ feat
 
 - toBeRemoved item functionality
   - if an item hasn't been used in the pass half year, prompt user to remove it
-  - notification for items exceed deadline
   - remove the item when user actually removed the item in real life
   - Clear screen: sort items by deadline
   - find a way to tell user total number
@@ -30,6 +29,14 @@ feat
 - backup/import data
 - search items
 - take pictrue
+
+fix
+
+- react router: non-serializable values were found in the navigation state.
+
+### Blocked
+
+- notification for items exceed deadline
 
 ### Done
 

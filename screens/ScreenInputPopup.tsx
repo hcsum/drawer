@@ -1,8 +1,10 @@
 import { RouteProp } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { RootScreenParamList } from '../App';
 import shared from '../CommonStyles';
+import { useItems } from '../contexts/ItemsContext';
+import { PRESET_LABEL } from '../contexts/ItemsTypeDef';
 
 type routeProp = RouteProp<RootScreenParamList, 'InputPopup'>;
 
@@ -17,7 +19,17 @@ const ScreenInputPopup = ({ route }: Props) => {
     isMultiLine = false,
     onChange,
   } = route.params;
+  const { labelsWithTotal } = useItems();
   const [text, setText] = useState(value);
+  const labels = [
+    ...labelsWithTotal.map((label) => label[0]),
+    PRESET_LABEL.TO_BE_REMOVED,
+  ];
+
+  function updateText(val: string) {
+    setText(val);
+    onChange(val);
+  }
 
   return (
     <View style={styles.container}>
@@ -31,12 +43,20 @@ const ScreenInputPopup = ({ route }: Props) => {
           numberOfLines={4}
           placeholder="..."
           style={styles.inputArea}
-          onChangeText={(val) => {
-            setText(val);
-            onChange(val);
-          }}
+          onChangeText={updateText}
         />
       </View>
+      {fieldName.toLowerCase() === 'label' && (
+        <View style={styles.labels}>
+          {labels.map((label) => (
+            <Button
+              key={label}
+              title={label}
+              onPress={() => updateText(label)}
+            />
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -45,11 +65,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1,
+    padding: 20,
     paddingTop: 200,
   },
   content: {
-    flex: 1,
-    padding: 20,
+    // flex: 1,
   },
   fieldName: {
     ...shared.secondaryText,
@@ -59,6 +79,14 @@ const styles = StyleSheet.create({
   inputArea: {
     ...shared.inputArea,
     fontSize: 20,
+  },
+  labels: {
+    marginTop: 30,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  labelButton: {
+    borderWidth: 1,
   },
 });
 

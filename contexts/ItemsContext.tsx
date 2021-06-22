@@ -39,6 +39,7 @@ function useItems() {
   const itemsToKeep = items.filter(
     (item) => item.label !== PRESET_LABEL.TO_BE_REMOVED
   );
+
   const itemsToBeRemoved = items
     .filter((item) => item.label === PRESET_LABEL.TO_BE_REMOVED)
     .sort(

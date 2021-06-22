@@ -46,20 +46,18 @@ export default function KeepItemsScreen({ navigation }: Props) {
           keyExtractor={(item) => item[0]}
           renderItem={({ item, index }) => {
             return (
-              <View>
-                <LabelThumbnail
-                  onTap={() => {
-                    navigation.navigate('ItemList', {
-                      title: item[0],
-                      label: item[0],
-                    });
-                  }}
-                  width={(WINDOW_WIDTH - 60) / COLUMN}
-                  name={item[0]}
-                  total={item[1]}
-                  index={index}
-                />
-              </View>
+              <LabelThumbnail
+                onTap={() => {
+                  navigation.navigate('ItemList', {
+                    title: item[0],
+                    label: item[0],
+                  });
+                }}
+                width={(WINDOW_WIDTH - 60) / COLUMN}
+                name={item[0]}
+                total={item[1]}
+                index={index}
+              />
             );
           }}
         />
