@@ -23,6 +23,15 @@ function itemsReducer(state: TItem[], action: TItemsAction) {
 
       return arr;
     }
+    case 'REMOVE': {
+      const { payload: id } = action;
+
+      const arr = [...state];
+      const idx = arr.findIndex((item) => item.id === id);
+      if (idx >= 0) arr.splice(idx, 1);
+
+      return arr;
+    }
   }
 }
 
@@ -67,6 +76,7 @@ function useItems() {
   const getItemByID = (id: string) => items.filter((item) => item.id === id)[0];
   const setItems = (list: TItem[]) => dispatch({ type: 'SET', payload: list });
   const addItem = (item: TItem) => dispatch({ type: 'ADD', payload: item });
+  const removeItem = (id: string) => dispatch({ type: 'REMOVE', payload: id });
   const updateItem = (item: TItem) =>
     dispatch({ type: 'UPDATE', payload: item });
 
@@ -79,6 +89,7 @@ function useItems() {
     setItems,
     addItem,
     updateItem,
+    removeItem,
   };
 }
 

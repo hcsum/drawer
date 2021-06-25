@@ -25,7 +25,7 @@ export type TItem = {
   probationPeriod: PROBATION_PERIOD | undefined;
 };
 
-export type TItemsAction = ActionSet | ActionAdd | ActionUpdate;
+export type TItemsAction = ActionSet | ActionAdd | ActionUpdate | ActionRemove;
 
 type ActionSet = {
   type: 'SET';
@@ -40,6 +40,11 @@ type ActionAdd = {
 type ActionUpdate = {
   type: 'UPDATE';
   payload: TItem;
+};
+
+type ActionRemove = {
+  type: 'REMOVE';
+  payload: string; // item id
 };
 
 const MOCK_DATA_CLEAR: TItem[] = [

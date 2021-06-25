@@ -12,17 +12,15 @@ data
 
 UI
 
-- improve label editing for new/existing items
 - settings page
-- distinguish keep items and remove items in singleItem page
 
 navigation
 
 feat
 
 - toBeRemoved item functionality
-  - if an item hasn't been used in the pass half year, prompt user to remove it
-  - remove the item when user actually removed the item in real life
+  - remove the item when user actually removed the item in real life ...
+    - where to go after deleting the item from single page ...
   - Clear screen: sort items by deadline
   - find a way to tell user total number
 - light/dark theme
@@ -40,6 +38,8 @@ fix
 
 ### Done
 
+- distinguish keep items and remove items in singleItem page
+- improve label editing for new/existing items
 - toClear list
 - use label to distinguish to keep and to be removed items
 - main page All items button

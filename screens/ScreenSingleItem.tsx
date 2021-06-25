@@ -39,7 +39,7 @@ type Props = {
 const ScreenSingleItem = ({ route }: Props) => {
   const navigation = useNavigation();
   const { item, isNew } = route.params;
-  const { updateItem, addItem } = useItems();
+  const { updateItem, addItem, removeItem } = useItems();
   const [localItem, setLocalItem] = useState(item);
 
   useEffect(() => {
@@ -102,6 +102,20 @@ const ScreenSingleItem = ({ route }: Props) => {
         title: localItem.label,
       })
     );
+  }
+
+  function handleRemove() {
+    Alert.alert('Remove item?', '', [
+      { text: 'Cancel', style: 'cancel', onPress: () => {} },
+      {
+        text: 'Confirm',
+        style: 'destructive',
+        // This will continue the action that had triggered the removal of the screen
+        onPress: () => {
+          removeItem(localItem.id);
+        },
+      },
+    ]);
   }
 
   function renderLabelSpecificFields() {
@@ -235,6 +249,16 @@ const ScreenSingleItem = ({ route }: Props) => {
               />
             </View>
           )}
+          {!isNew && (
+            <View style={styles.deleteBtn}>
+              <Button
+                onPress={handleRemove}
+                title="DELETE ITEM"
+                color="white"
+                accessibilityLabel="Delete this item"
+              />
+            </View>
+          )}
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
@@ -269,6 +293,10 @@ const styles = StyleSheet.create({
   },
   saveBtn: {
     ...shared.buttonBig,
+  },
+  deleteBtn: {
+    ...shared.buttonBig,
+    backgroundColor: '#fc5603',
   },
 });
 
