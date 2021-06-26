@@ -2,12 +2,13 @@ import React from 'react';
 import HomeTabs from './NavHome';
 import ItemList from './ScreenItemList';
 import ItemSingle from '../screens/ScreenSingleItem';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import IconButton from '../components/IconButton';
 import { View } from 'react-native';
 import { TItem } from '../contexts/ItemsTypeDef';
 import { getNewItem } from '../utils/item';
+import { RootScreenParamList } from '../App';
 
 export type MainScreenParamList = {
   Home: undefined;
@@ -21,7 +22,9 @@ export type MainScreenParamList = {
 const Stack = createStackNavigator<MainScreenParamList>();
 
 const MainScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<
+    NavigationProp<MainScreenParamList & RootScreenParamList>
+  >();
 
   return (
     <Stack.Navigator>
@@ -32,7 +35,21 @@ const MainScreen = () => {
           title: 'Drawer',
           headerLeft: () => (
             <View style={{ paddingLeft: 20 }}>
-              <IconButton type="search" onPress={() => alert('search')} />
+              <IconButton
+                type="search"
+                onPress={() =>
+                  navigation.navigate('InputPopup', {
+                    fieldName: 'Search',
+                    willHandleNavigation: true,
+                    onChange: () => {
+                      navigation.navigate('ItemList', {
+                        title: 'Search result',
+                        label: 'Sport',
+                      });
+                    },
+                  })
+                }
+              />
             </View>
           ),
           headerRight: () => (

@@ -31,15 +31,13 @@ export default function ItemList({ navigation, route }: Props) {
         keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => {
           return (
-            <View>
-              <ItemThumbnail
-                onTap={() => navigation.navigate('ItemSingle', { item })}
-                width={(WINDOW_WIDTH - 60) / COLUMN}
-                name={item.name}
-                note={item.note}
-                index={index}
-              />
-            </View>
+            <ItemThumbnail
+              onTap={() => navigation.navigate('ItemSingle', { item })}
+              width={(WINDOW_WIDTH - 60) / COLUMN}
+              name={item.name}
+              note={item.note}
+              index={index}
+            />
           );
         }}
       />
@@ -52,7 +50,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 5,
   },
-  touchBarWrap: {
+  NumberBarWrap: {
     marginBottom: 20,
   },
   labelList: {

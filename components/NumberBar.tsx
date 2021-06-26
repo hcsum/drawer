@@ -16,7 +16,7 @@ const IconMap = {
   remove: require('../assets/clear.png'),
 };
 
-const TouchBar = ({ title, number, onPress, icon }: IProps) => {
+const NumberBar = ({ title, number, onPress, icon }: IProps) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.title}>
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TouchBar;
+export default NumberBar;

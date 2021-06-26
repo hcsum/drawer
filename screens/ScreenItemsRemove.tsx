@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 80,
   },
-  touchBarWrap: {
+  NumberBarWrap: {
     marginBottom: 20,
   },
   labelList: {

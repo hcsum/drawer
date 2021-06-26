@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
-import TouchBar from '../components/TouchBar';
+import NumberBar from '../components/NumberBar';
 import LabelThumbnail from '../components/LabelThumbnail';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { HomeTabStackParamList } from './NavHome';
@@ -27,7 +27,7 @@ export default function KeepItemsScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.allItems}>
-        <TouchBar
+        <NumberBar
           title="All items"
           number={items.length}
           onPress={() => {

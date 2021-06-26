@@ -73,6 +73,13 @@ function useItems() {
     return itemsToKeep;
   };
 
+  const searchForItems = (keyword: string) => {
+    const result = items.filter((item) =>
+      JSON.stringify(item).includes(keyword)
+    );
+    return result;
+  };
+
   const getItemByID = (id: string) => items.filter((item) => item.id === id)[0];
   const setItems = (list: TItem[]) => dispatch({ type: 'SET', payload: list });
   const addItem = (item: TItem) => dispatch({ type: 'ADD', payload: item });
@@ -90,6 +97,7 @@ function useItems() {
     addItem,
     updateItem,
     removeItem,
+    searchForItems,
   };
 }
 
