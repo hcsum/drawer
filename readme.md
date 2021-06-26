@@ -4,33 +4,21 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ## Todo
 
-architectrue
+### Working
 
-data
-
-- persist user inputs
-
-UI
-
-- settings page
-
-navigation
-
-feat
-
-- toBeRemoved item functionality
-  - remove the item when user actually removed the item in real life ...
-    - where to go after deleting the item from single page ...
-  - Clear screen: sort items by deadline
+- feat: search items
+- feat: persist user inputs
+- feat: toBeRemoved item functionality
+  - Clear screen: sort items by last used
   - find a way to tell user total number
-- light/dark theme
-- backup/import data
-- search items
-- take pictrue
+- feat: light/dark theme
+- feat: backup/import data
+- feat: take pictrue
+- improv: add keep / remove item based on current screen: on keep screen while tapping add button, singleItemScreen with keep fields, same for remove item.
+- fix: react router: non-serializable values were found in the navigation state.
+- feat: settings page
 
-fix
-
-- react router: non-serializable values were found in the navigation state.
+### Can wait
 
 ### Blocked
 
@@ -38,6 +26,7 @@ fix
 
 ### Done
 
+- remove the item
 - distinguish keep items and remove items in singleItem page
 - improve label editing for new/existing items
 - toClear list
