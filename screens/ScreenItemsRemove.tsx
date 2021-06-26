@@ -24,29 +24,32 @@ type Props = {
 
 export default function RemoveItemsScreen({ navigation }: Props) {
   const { itemsToBeRemoved } = useItems();
+  const data = itemsToBeRemoved.sort(
+    (itemA, itemB) =>
+      new Date(itemA.dateLastUsed || 0).getTime() -
+      new Date(itemB.dateLastUsed || 0).getTime()
+  );
 
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.labelList}
-        data={itemsToBeRemoved}
+        data={data}
         numColumns={COLUMN}
         keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => {
           return (
-            <View>
-              <ItemThumbnail
-                isToBeRemoved
-                probationPeriod={item.probationPeriod}
-                timeLastUsed={item.dateLastUsed}
-                onTap={() => {
-                  navigation.navigate('ItemSingle', { item });
-                }}
-                width={(WINDOW_WIDTH - 60) / COLUMN}
-                name={item.name}
-                index={index}
-              />
-            </View>
+            <ItemThumbnail
+              isToBeRemoved
+              probationPeriod={item.probationPeriod}
+              timeLastUsed={item.dateLastUsed}
+              onTap={() => {
+                navigation.navigate('ItemSingle', { item });
+              }}
+              width={(WINDOW_WIDTH - 60) / COLUMN}
+              name={item.name}
+              index={index}
+            />
           );
         }}
       />

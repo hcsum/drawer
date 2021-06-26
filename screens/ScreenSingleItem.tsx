@@ -110,9 +110,9 @@ const ScreenSingleItem = ({ route }: Props) => {
       {
         text: 'Confirm',
         style: 'destructive',
-        // This will continue the action that had triggered the removal of the screen
         onPress: () => {
           removeItem(localItem.id);
+          navigation.navigate('Home');
         },
       },
     ]);
@@ -140,7 +140,9 @@ const ScreenSingleItem = ({ route }: Props) => {
           <View style={styles.sectionWrap}>
             <Text style={styles.sectionTitle}>Probation Period</Text>
             <Picker
-              selectedValue={localItem.probationPeriod}
+              selectedValue={
+                localItem.probationPeriod || PROBATION_PERIOD_OPTIONS[0].value
+              }
               onValueChange={(val) =>
                 update({ probationPeriod: val as PROBATION_PERIOD })
               }
