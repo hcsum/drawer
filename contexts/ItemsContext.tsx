@@ -75,7 +75,7 @@ function useItems() {
 
   const searchForItems = (keyword: string) => {
     const result = items.filter((item) =>
-      JSON.stringify(item).includes(keyword)
+      JSON.stringify(item).toLocaleLowerCase().includes(keyword.toLowerCase())
     );
     return result;
   };

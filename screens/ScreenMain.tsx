@@ -9,10 +9,11 @@ import { View } from 'react-native';
 import { TItem } from '../contexts/ItemsTypeDef';
 import { getNewItem } from '../utils/item';
 import { RootScreenParamList } from '../App';
+import SearchButton from '../components/SearchButton';
 
 export type MainScreenParamList = {
   Home: undefined;
-  ItemList: { title: string; label: string | null };
+  ItemList: { title: string; data: TItem[] };
   ItemSingle: {
     isNew?: boolean;
     item: TItem;
@@ -35,21 +36,7 @@ const MainScreen = () => {
           title: 'Drawer',
           headerLeft: () => (
             <View style={{ paddingLeft: 20 }}>
-              <IconButton
-                type="search"
-                onPress={() =>
-                  navigation.navigate('InputPopup', {
-                    fieldName: 'Search',
-                    willHandleNavigation: true,
-                    onChange: () => {
-                      navigation.navigate('ItemList', {
-                        title: 'Search result',
-                        label: 'Sport',
-                      });
-                    },
-                  })
-                }
-              />
+              <SearchButton />
             </View>
           ),
           headerRight: () => (

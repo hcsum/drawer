@@ -39,7 +39,7 @@ type Props = {
 const ScreenSingleItem = ({ route }: Props) => {
   const navigation = useNavigation();
   const { item, isNew } = route.params;
-  const { updateItem, addItem, removeItem } = useItems();
+  const { updateItem, addItem, removeItem, getItemsByLabel } = useItems();
   const [localItem, setLocalItem] = useState(item);
 
   useEffect(() => {
@@ -98,7 +98,7 @@ const ScreenSingleItem = ({ route }: Props) => {
 
     navigation.dispatch(
       StackActions.replace('ItemList', {
-        label: localItem.label,
+        data: getItemsByLabel(localItem.label),
         title: localItem.label,
       })
     );

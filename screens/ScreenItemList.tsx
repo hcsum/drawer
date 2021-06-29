@@ -4,7 +4,8 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MainScreenParamList } from './ScreenMain';
 import ItemThumbnail from '../components/ItemThumbnail';
-import { useItems } from '../contexts/ItemsContext';
+import Text from '../components/Text';
+import SubText from '../components/SubText';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const COLUMN = 2;
@@ -18,35 +19,40 @@ type Props = {
 };
 
 export default function ItemList({ navigation, route }: Props) {
-  const { label } = route.params;
-  const { getItemsByLabel } = useItems();
-  const items = getItemsByLabel(label);
+  const { data } = route.params;
 
   return (
     <View style={styles.container}>
-      <FlatList
-        style={styles.labelList}
-        data={items}
-        numColumns={COLUMN}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) => {
-          return (
-            <ItemThumbnail
-              onTap={() => navigation.navigate('ItemSingle', { item })}
-              width={(WINDOW_WIDTH - 60) / COLUMN}
-              name={item.name}
-              note={item.note}
-              index={index}
-            />
-          );
-        }}
-      />
+      {data.length > 0 ? (
+        <FlatList
+          style={styles.labelList}
+          data={data}
+          numColumns={COLUMN}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => {
+            return (
+              <ItemThumbnail
+                onTap={() => navigation.navigate('ItemSingle', { item })}
+                width={(WINDOW_WIDTH - 60) / COLUMN}
+                name={item.name}
+                note={item.note}
+                index={index}
+              />
+            );
+          }}
+        />
+      ) : (
+        <View style={styles.noResult}>
+          <SubText>No item found</SubText>
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 20,
     paddingBottom: 5,
   },
@@ -55,5 +61,10 @@ const styles = StyleSheet.create({
   },
   labelList: {
     // marginTop: 20,
+  },
+  noResult: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
