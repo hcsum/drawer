@@ -18,7 +18,7 @@ export type TItem = {
   name: string;
   note: string;
   amount: number;
-  img: string | undefined;
+  img: any | undefined;
   label: string | PRESET_LABEL;
   dateAcquired: string | undefined;
   dateLastUsed: string | undefined;

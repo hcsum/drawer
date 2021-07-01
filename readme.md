@@ -6,14 +6,15 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ### Working
 
+- feat: take pictrue
+  fix: data in list not updating, might need to pass in search query to list
+  fix: photo is not being saved to state
 - feat: persist user inputs (maybe it will just happen when runs on a real device as real app?)
 - feat: toBeRemoved item functionality
-  - Clear screen: sort items by last used
-  - find a way to tell user total number
+- find a way to tell user total number
 - feat: light/dark theme
 - feat: backup/import data
-- feat: take pictrue
-- improv: add keep / remove item based on current screen: on keep screen while tapping add button, singleItemScreen with keep fields, same for remove item.
+- improve: add keep / remove item based on current screen: on keep screen while tapping add button, singleItemScreen with keep fields, same for remove item.
 - fix: react router: non-serializable values were found in the navigation state.
 - feat: settings page
 
@@ -25,6 +26,7 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ### Done
 
+- Clear screen: sort items by last used
 - feat: search items
 - remove the item
 - distinguish keep items and remove items in singleItem page

@@ -29,6 +29,8 @@ import {
   PROBATION_PERIOD_OPTIONS,
   TItem,
 } from '../contexts/ItemsTypeDef';
+import Camera from '../components/Camera';
+import { CameraCapturedPicture } from 'expo-camera';
 
 type routeProp = RouteProp<MainScreenParamList, 'ItemSingle'>;
 
@@ -74,6 +76,10 @@ const ScreenSingleItem = ({ route }: Props) => {
 
     updateItem(updated);
     setLocalItem(updated);
+  }
+
+  function updatePhoto(val: CameraCapturedPicture) {
+    update({ img: val });
   }
 
   function updateName(val: string) {
@@ -183,9 +189,10 @@ const ScreenSingleItem = ({ route }: Props) => {
       <SafeAreaView>
         <ScrollView>
           <View>
+            <Camera onSnap={updatePhoto} />
             <View style={styles.imageAndName}>
               <Image
-                source={require('../assets/keychron-k6.jpeg')}
+                source={localItem.img || require('../assets/keychron-k6.jpeg')}
                 style={shared.image}
               />
               <View>

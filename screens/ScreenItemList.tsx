@@ -4,7 +4,6 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MainScreenParamList } from './ScreenMain';
 import ItemThumbnail from '../components/ItemThumbnail';
-import Text from '../components/Text';
 import SubText from '../components/SubText';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
