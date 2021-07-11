@@ -104,8 +104,8 @@ const ScreenSingleItem = ({ route }: Props) => {
 
     navigation.dispatch(
       StackActions.replace('ItemList', {
-        data: getItemsByLabel(localItem.label),
         title: localItem.label,
+        searchQuery: { label: localItem.label },
       })
     );
   }

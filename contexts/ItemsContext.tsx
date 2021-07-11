@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { useEffect, useMemo, useReducer } from 'react';
 import { getData, storeData } from '../utils/Storage';
-import { MOCK_DATA, PRESET_LABEL, TItem, TItemsAction } from './ItemsTypeDef';
+import {
+  ISearchQuery,
+  MOCK_DATA,
+  PRESET_LABEL,
+  TItem,
+  TItemsAction,
+} from './ItemsTypeDef';
 
 function itemsReducer(state: TItem[], action: TItemsAction) {
   switch (action.type) {
@@ -73,11 +79,19 @@ function useItems() {
     return itemsToKeep;
   };
 
-  const searchForItems = (keyword: string) => {
-    const result = items.filter((item) =>
-      JSON.stringify(item).toLocaleLowerCase().includes(keyword.toLowerCase())
-    );
-    return result;
+  const searchForItems = (queryObject: ISearchQuery) => {
+    const { keyword, label } = queryObject;
+
+    if (keyword) {
+      const result = items.filter((item) =>
+        JSON.stringify(item).toLocaleLowerCase().includes(keyword.toLowerCase())
+      );
+      return result;
+    }
+
+    if (label) return getItemsByLabel(label);
+
+    return itemsToKeep;
   };
 
   const getItemByID = (id: string) => items.filter((item) => item.id === id)[0];

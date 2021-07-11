@@ -1,12 +1,10 @@
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import React from 'react';
 import { RootScreenParamList } from '../App';
-import { useItems } from '../contexts/ItemsContext';
 import { MainScreenParamList } from '../screens/ScreenMain';
 import IconButton from './IconButton';
 
 function SearchButton() {
-  const { searchForItems } = useItems();
   const navigation = useNavigation<
     NavigationProp<MainScreenParamList & RootScreenParamList>
   >();
@@ -19,10 +17,9 @@ function SearchButton() {
           fieldName: 'Search',
           willHandleNavigation: true,
           onChange: (val) => {
-            const result = searchForItems(val);
             navigation.navigate('ItemList', {
               title: 'Search result',
-              data: result,
+              searchQuery: { keyword: val },
             });
           },
         })

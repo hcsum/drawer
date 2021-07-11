@@ -6,14 +6,14 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import IconButton from '../components/IconButton';
 import { View } from 'react-native';
-import { TItem } from '../contexts/ItemsTypeDef';
+import { ISearchQuery, TItem } from '../contexts/ItemsTypeDef';
 import { getNewItem } from '../utils/item';
 import { RootScreenParamList } from '../App';
 import SearchButton from '../components/SearchButton';
 
 export type MainScreenParamList = {
   Home: undefined;
-  ItemList: { title: string; data: TItem[] };
+  ItemList: { title: string; searchQuery: ISearchQuery };
   ItemSingle: {
     isNew?: boolean;
     item: TItem;

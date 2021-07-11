@@ -18,7 +18,7 @@ export type TItem = {
   name: string;
   note: string;
   amount: number;
-  img: any | undefined;
+  img: any | undefined; // todo: define type
   label: string | PRESET_LABEL;
   dateAcquired: string | undefined;
   dateLastUsed: string | undefined;
@@ -82,6 +82,11 @@ const MOCK_DATA_CLEAR: TItem[] = [
     label: PRESET_LABEL.TO_BE_REMOVED,
   },
 ];
+
+export interface ISearchQuery {
+  keyword?: string;
+  label?: string;
+}
 
 export const MOCK_DATA: TItem[] = [
   {
