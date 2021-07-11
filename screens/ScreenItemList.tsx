@@ -39,6 +39,7 @@ export default function ItemList({ navigation, route }: Props) {
                 width={(WINDOW_WIDTH - 60) / COLUMN}
                 name={item.name}
                 note={item.note}
+                item={item}
                 index={index}
               />
             );

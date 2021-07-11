@@ -192,8 +192,8 @@ const ScreenSingleItem = ({ route }: Props) => {
             <Camera onSnap={updatePhoto} />
             <View style={styles.imageAndName}>
               <Image
-                source={localItem.img || require('../assets/keychron-k6.jpeg')}
-                style={shared.image}
+                source={localItem.img || require('../assets/item.png')}
+                style={styles.image}
               />
               <View>
                 <Text
@@ -281,6 +281,10 @@ const styles = StyleSheet.create({
   imageAndName: {
     ...shared.section,
     height: 300,
+  },
+  image: {
+    ...shared.image,
+    resizeMode: 'center',
   },
   itemName: {
     fontSize: shared.bigSizeText,

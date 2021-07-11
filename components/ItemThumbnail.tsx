@@ -5,7 +5,7 @@ import Text from './Text';
 import SubText from './SubText';
 import truncate from '../utils/truncate';
 import { checkIsExpired, getLastUseSince } from '../utils/item';
-import { PROBATION_PERIOD } from '../contexts/ItemsTypeDef';
+import { PROBATION_PERIOD, TItem } from '../contexts/ItemsTypeDef';
 
 interface IProps {
   name: string;
@@ -15,6 +15,7 @@ interface IProps {
   isToBeRemoved?: boolean;
   timeLastUsed?: string;
   probationPeriod?: PROBATION_PERIOD;
+  item: TItem;
   onTap: () => void;
 }
 
@@ -26,6 +27,7 @@ const ItemThumbnail = ({
   isToBeRemoved,
   timeLastUsed,
   probationPeriod,
+  item,
   onTap,
 }: IProps) => {
   const containerStyle = {
@@ -44,13 +46,12 @@ const ItemThumbnail = ({
   if ((index + 1) % 2 === 0) containerStyle.marginLeft = 10;
   else containerStyle.marginRight = 10;
 
+  const imgSrc = item.img || require('../assets/item.png');
+
   return (
     <TouchableOpacity onPress={onTap}>
       <View style={containerStyle}>
-        <Image
-          style={styles.thumbnail}
-          source={require('../assets/keychron-k6.jpeg')}
-        />
+        <Image style={styles.thumbnail} source={imgSrc} />
         <View style={styles.texts}>
           <Text>{name}</Text>
           {isToBeRemoved && timeLastUsed ? (
@@ -73,7 +74,10 @@ const styles = StyleSheet.create({
     marginRight: 0,
     marginBottom: 20,
   },
-  thumbnail: shared.image,
+  thumbnail: {
+    ...shared.image,
+    resizeMode: 'center',
+  },
   texts: {
     padding: 10,
   },

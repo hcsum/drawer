@@ -41,6 +41,7 @@ export default function RemoveItemsScreen({ navigation }: Props) {
           return (
             <ItemThumbnail
               isToBeRemoved
+              item={item}
               probationPeriod={item.probationPeriod}
               timeLastUsed={item.dateLastUsed}
               onTap={() => {

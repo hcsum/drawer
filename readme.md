@@ -6,9 +6,8 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ### Working
 
-- feat: take pictrue
-  fix: data in list not updating, might need to pass in search query to list
-  fix: photo is not being saved to state
+- feat: take pictrue UI
+- feat: take pictrue data
 - feat: persist user inputs (maybe it will just happen when runs on a real device as real app?)
 - feat: toBeRemoved item functionality
 - find a way to tell user total number
@@ -26,6 +25,7 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ### Done
 
+- fix: data in list not updating, might need to pass in search query to list
 - Clear screen: sort items by last used
 - feat: search items
 - remove the item
