@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Main from './screens/ScreenMain';
 import { ItemsProvider } from './contexts/ItemsContext';
 import ScreenInputPopup from './screens/ScreenInputPopup';
+import ScreenCameraPopup from './screens/ScreenCameraPopup';
+import { CameraCapturedPicture } from 'expo-camera';
 
 export type RootScreenParamList = {
   Main: undefined;
@@ -13,6 +15,9 @@ export type RootScreenParamList = {
     value?: string;
     isMultiLine?: boolean;
     onChange: (val: string) => void;
+  };
+  CameraPopup: {
+    onChange: (pic: CameraCapturedPicture) => void;
   };
 };
 
@@ -31,6 +36,14 @@ const App = () => {
           <RootStack.Screen
             name="InputPopup"
             component={ScreenInputPopup}
+            options={{
+              headerShown: false,
+              gestureResponseDistance: { vertical: 300 },
+            }}
+          />
+          <RootStack.Screen
+            name="CameraPopup"
+            component={ScreenCameraPopup}
             options={{
               headerShown: false,
               gestureResponseDistance: { vertical: 300 },

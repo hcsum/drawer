@@ -36,7 +36,7 @@ const ScreenInputPopup = ({ route }: Props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
+      <View>
         <Text style={styles.fieldName}>{fieldName}</Text>
         <View style={styles.inputWrap}>
           <TextInput
@@ -69,9 +69,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingTop: 200,
-  },
-  content: {
-    // flex: 1,
   },
   fieldName: {
     ...shared.secondaryText,

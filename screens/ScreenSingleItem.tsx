@@ -29,8 +29,8 @@ import {
   PROBATION_PERIOD_OPTIONS,
   TItem,
 } from '../contexts/ItemsTypeDef';
-import Camera from '../components/Camera';
 import { CameraCapturedPicture } from 'expo-camera';
+import Icon from '../components/Icon';
 
 type routeProp = RouteProp<MainScreenParamList, 'ItemSingle'>;
 
@@ -41,7 +41,7 @@ type Props = {
 const ScreenSingleItem = ({ route }: Props) => {
   const navigation = useNavigation();
   const { item, isNew } = route.params;
-  const { updateItem, addItem, removeItem, getItemsByLabel } = useItems();
+  const { updateItem, addItem, removeItem } = useItems();
   const [localItem, setLocalItem] = useState(item);
 
   useEffect(() => {
@@ -189,12 +189,26 @@ const ScreenSingleItem = ({ route }: Props) => {
       <SafeAreaView>
         <ScrollView>
           <View>
-            <Camera onSnap={updatePhoto} />
             <View style={styles.imageAndName}>
-              <Image
-                source={localItem.img || require('../assets/item.png')}
-                style={styles.image}
-              />
+              <TouchableOpacity
+                style={styles.imageWrap}
+                onPress={() => {
+                  navigation.navigate('CameraPopup', {
+                    onChange: updatePhoto,
+                  });
+                }}
+              >
+                {localItem.img ? (
+                  <Image
+                    style={styles.image}
+                    source={localItem.img || require('../assets/item.png')}
+                  />
+                ) : (
+                  <View style={styles.placeholder}>
+                    <Icon type="item" size={50} />
+                  </View>
+                )}
+              </TouchableOpacity>
               <View>
                 <Text
                   style={styles.itemName}
@@ -282,9 +296,12 @@ const styles = StyleSheet.create({
     ...shared.section,
     height: 300,
   },
+  imageWrap: {
+    flex: 1,
+  },
   image: {
     ...shared.image,
-    resizeMode: 'center',
+    resizeMode: 'cover',
   },
   itemName: {
     fontSize: shared.bigSizeText,
@@ -310,6 +327,11 @@ const styles = StyleSheet.create({
   deleteBtn: {
     ...shared.buttonBig,
     backgroundColor: '#fc5603',
+  },
+  placeholder: {
+    ...shared.image,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

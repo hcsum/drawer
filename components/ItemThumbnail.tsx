@@ -6,6 +6,7 @@ import SubText from './SubText';
 import truncate from '../utils/truncate';
 import { checkIsExpired, getLastUseSince } from '../utils/item';
 import { PROBATION_PERIOD, TItem } from '../contexts/ItemsTypeDef';
+import Icon from './Icon';
 
 interface IProps {
   name: string;
@@ -46,12 +47,16 @@ const ItemThumbnail = ({
   if ((index + 1) % 2 === 0) containerStyle.marginLeft = 10;
   else containerStyle.marginRight = 10;
 
-  const imgSrc = item.img || require('../assets/item.png');
-
   return (
     <TouchableOpacity onPress={onTap}>
       <View style={containerStyle}>
-        <Image style={styles.thumbnail} source={imgSrc} />
+        {item.img ? (
+          <Image style={styles.thumbnail} source={item.img} />
+        ) : (
+          <View style={styles.placeholder}>
+            <Icon type="item" size={40} />
+          </View>
+        )}
         <View style={styles.texts}>
           <Text>{name}</Text>
           {isToBeRemoved && timeLastUsed ? (
@@ -76,7 +81,12 @@ const styles = StyleSheet.create({
   },
   thumbnail: {
     ...shared.image,
-    resizeMode: 'center',
+    resizeMode: 'cover',
+  },
+  placeholder: {
+    ...shared.image,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   texts: {
     padding: 10,

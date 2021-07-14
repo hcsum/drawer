@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Image, ImageStyle } from 'react-native';
 
 export type IconType =
+  | 'item'
   | 'search'
   | 'add'
   | 'options'
@@ -10,7 +11,9 @@ export type IconType =
   | 'clear-gray'
   | 'drawer-gray'
   | 'go'
-  | 'go-gray';
+  | 'go-gray'
+  | 'circle'
+  | 'circle-gray';
 
 export interface IconProps {
   type: IconType;
@@ -18,6 +21,7 @@ export interface IconProps {
 }
 
 const IconMap = {
+  item: require('../assets/item.png'),
   search: require('../assets/search.png'),
   add: require('../assets/plus.png'),
   options: require('../assets/options.png'),
@@ -27,6 +31,8 @@ const IconMap = {
   'drawer-gray': require('../assets/drawer-gray.png'),
   go: require('../assets/go.png'),
   'go-gray': require('../assets/go-gray.png'),
+  circle: require('../assets/circle.png'),
+  'circle-gray': require('../assets/circle-pressed.png'),
 };
 
 const Icon = ({ type, size }: IconProps) => {
