@@ -4,7 +4,7 @@ import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import Text from './Text';
 import SubText from './SubText';
 import truncate from '../utils/truncate';
-import { checkIsExpired, getLastUseSince } from '../utils/item';
+import { checkIsExpired, getDateStringSince } from '../utils/item';
 import { PROBATION_PERIOD, TItem } from '../contexts/ItemsTypeDef';
 import Icon from './Icon';
 
@@ -60,7 +60,7 @@ const ItemThumbnail = ({
         <View style={styles.texts}>
           <Text>{name}</Text>
           {isToBeRemoved && timeLastUsed ? (
-            <SubText>Last used {getLastUseSince(timeLastUsed)}</SubText>
+            <SubText>Last used {getDateStringSince(timeLastUsed)}</SubText>
           ) : (
             <SubText>{truncate(note)}</SubText>
           )}

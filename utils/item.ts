@@ -18,11 +18,11 @@ export function getNewItem(): TItem {
   };
 }
 
-export function getLastUseSince(date: string) {
+export function getDateStringSince(date: string) {
   const now = new Date().getTime();
-  const lastUsedAt = new Date(date).getTime();
+  const lastTime = new Date(date).getTime();
 
-  const gap = now - lastUsedAt;
+  const gap = now - lastTime;
 
   const gapInDay = gap / 1000 / 60 / 60 / 24;
 

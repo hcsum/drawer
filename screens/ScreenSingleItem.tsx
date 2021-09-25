@@ -31,6 +31,7 @@ import {
 } from '../contexts/ItemsTypeDef';
 import { CameraCapturedPicture } from 'expo-camera';
 import Icon from '../components/Icon';
+import { getDateStringSince } from '../utils/item';
 
 type routeProp = RouteProp<MainScreenParamList, 'ItemSingle'>;
 
@@ -124,25 +125,35 @@ const ScreenSingleItem = ({ route }: Props) => {
     ]);
   }
 
+  function renderDateSettingField(type: 'dateAcquired' | 'dateLastUsed') {
+    const title = type === 'dateAcquired' ? 'Date Acquired' : 'Last Time Used';
+
+    return (
+      <View style={styles.sectionWrap}>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        <DateTimePicker
+          value={new Date(localItem[type] || '')}
+          textColor="black"
+          mode="date"
+          display="default"
+          onChange={(_, date) =>
+            update({
+              [type]: date?.toISOString(),
+            })
+          }
+        />
+        <Text style={styles.subText}>
+          {getDateStringSince(localItem[type]!)}
+        </Text>
+      </View>
+    );
+  }
+
   function renderLabelSpecificFields() {
     if (localItem.label === PRESET_LABEL.TO_BE_REMOVED)
       return (
         <>
-          <View style={styles.sectionWrap}>
-            <Text style={styles.sectionTitle}>Last Time Used</Text>
-            <DateTimePicker
-              value={new Date(localItem.dateLastUsed || '')}
-              textColor="black"
-              mode="date"
-              display="default"
-              onChange={(_, date) =>
-                update({
-                  dateLastUsed: date?.toISOString(),
-                })
-              }
-            />
-            <Text style={styles.subText}>6 years ago</Text>
-          </View>
+          {renderDateSettingField('dateLastUsed')}
           <View style={styles.sectionWrap}>
             <Text style={styles.sectionTitle}>Probation Period</Text>
             <Picker
@@ -165,23 +176,7 @@ const ScreenSingleItem = ({ route }: Props) => {
         </>
       );
 
-    return (
-      <View style={styles.sectionWrap}>
-        <Text style={styles.sectionTitle}>Date Acquired</Text>
-        <DateTimePicker
-          value={new Date(localItem.dateAcquired || '')}
-          textColor="black"
-          mode="date"
-          display="default"
-          onChange={(_, date) =>
-            update({
-              dateAcquired: date?.toISOString(),
-            })
-          }
-        />
-        <Text style={styles.subText}>6 years ago</Text>
-      </View>
-    );
+    return renderDateSettingField('dateAcquired');
   }
 
   return (
