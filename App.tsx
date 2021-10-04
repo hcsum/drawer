@@ -6,6 +6,7 @@ import { ItemsProvider } from './contexts/ItemsContext';
 import ScreenInputPopup from './screens/ScreenInputPopup';
 import ScreenCameraPopup from './screens/ScreenCameraPopup';
 import { CameraCapturedPicture } from 'expo-camera';
+import { NativeBaseProvider } from 'native-base';
 
 export type RootScreenParamList = {
   Main: undefined;
@@ -25,33 +26,35 @@ const RootStack = createStackNavigator<RootScreenParamList>();
 
 const App = () => {
   return (
-    <ItemsProvider>
-      <NavigationContainer>
-        <RootStack.Navigator mode="modal">
-          <RootStack.Screen
-            name="Main"
-            component={Main}
-            options={{ headerShown: false }}
-          />
-          <RootStack.Screen
-            name="InputPopup"
-            component={ScreenInputPopup}
-            options={{
-              headerShown: false,
-              gestureResponseDistance: { vertical: 300 },
-            }}
-          />
-          <RootStack.Screen
-            name="CameraPopup"
-            component={ScreenCameraPopup}
-            options={{
-              headerShown: false,
-              gestureResponseDistance: { vertical: 300 },
-            }}
-          />
-        </RootStack.Navigator>
-      </NavigationContainer>
-    </ItemsProvider>
+    <NativeBaseProvider>
+      <ItemsProvider>
+        <NavigationContainer>
+          <RootStack.Navigator mode="modal">
+            <RootStack.Screen
+              name="Main"
+              component={Main}
+              options={{ headerShown: false }}
+            />
+            <RootStack.Screen
+              name="InputPopup"
+              component={ScreenInputPopup}
+              options={{
+                headerShown: false,
+                gestureResponseDistance: { vertical: 300 },
+              }}
+            />
+            <RootStack.Screen
+              name="CameraPopup"
+              component={ScreenCameraPopup}
+              options={{
+                headerShown: false,
+                gestureResponseDistance: { vertical: 300 },
+              }}
+            />
+          </RootStack.Navigator>
+        </NavigationContainer>
+      </ItemsProvider>
+    </NativeBaseProvider>
   );
 };
 

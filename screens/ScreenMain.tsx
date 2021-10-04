@@ -23,9 +23,8 @@ export type MainScreenParamList = {
 const Stack = createStackNavigator<MainScreenParamList>();
 
 const MainScreen = () => {
-  const navigation = useNavigation<
-    NavigationProp<MainScreenParamList & RootScreenParamList>
-  >();
+  const navigation =
+    useNavigation<NavigationProp<MainScreenParamList & RootScreenParamList>>();
 
   return (
     <Stack.Navigator>

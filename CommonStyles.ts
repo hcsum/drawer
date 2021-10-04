@@ -12,6 +12,11 @@ export default {
     padding: screenPadding,
     flex: 1,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   section: {
     borderRadius,
     backgroundColor,

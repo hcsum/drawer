@@ -47,6 +47,8 @@ const ItemThumbnail = ({
   if ((index + 1) % 2 === 0) containerStyle.marginLeft = 10;
   else containerStyle.marginRight = 10;
 
+  console.log('item image', item.img);
+
   return (
     <TouchableOpacity onPress={onTap}>
       <View style={containerStyle}>

@@ -5,6 +5,7 @@ import {
   EventArg,
 } from '@react-navigation/native';
 import NumericInput from 'react-native-numeric-input';
+import { Button, NativeBaseProvider, Modal } from 'native-base';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useEffect, useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
@@ -16,7 +17,6 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Button,
   SafeAreaView,
   Alert,
 } from 'react-native';
@@ -32,6 +32,8 @@ import {
 import { CameraCapturedPicture } from 'expo-camera';
 import Icon from '../components/Icon';
 import { getDateStringSince } from '../utils/item';
+import ButtonBig from '../components/ButtonBig';
+import pickImage from '../utils/ImagePicker';
 
 type routeProp = RouteProp<MainScreenParamList, 'ItemSingle'>;
 
@@ -44,6 +46,7 @@ const ScreenSingleItem = ({ route }: Props) => {
   const { item, isNew } = route.params;
   const { updateItem, addItem, removeItem } = useItems();
   const [localItem, setLocalItem] = useState(item);
+  const [imagePromptShow, setImagePromptShow] = useState(false);
 
   useEffect(() => {
     const onGoBack = (e: NavEvent) => {
@@ -125,6 +128,29 @@ const ScreenSingleItem = ({ route }: Props) => {
     ]);
   }
 
+  function onImageTap() {
+    setImagePromptShow(true);
+  }
+
+  function onCameraOpen() {
+    navigation.navigate('CameraPopup', {
+      onChange: updatePhoto,
+    });
+  }
+
+  function onImagePickerOpen() {
+    pickImage().then((uri) => uri && update({ img: uri }));
+  }
+
+  function onNoteInputTap() {
+    navigation.navigate('InputPopup', {
+      value: localItem.note,
+      fieldName: 'Note',
+      onChange: updateNote,
+      isMultiLine: true,
+    });
+  }
+
   function renderDateSettingField(type: 'dateAcquired' | 'dateLastUsed') {
     const title = type === 'dateAcquired' ? 'Date Acquired' : 'Last Time Used';
 
@@ -149,98 +175,130 @@ const ScreenSingleItem = ({ route }: Props) => {
     );
   }
 
-  function renderLabelSpecificFields() {
-    if (localItem.label === PRESET_LABEL.TO_BE_REMOVED)
-      return (
-        <>
-          {renderDateSettingField('dateLastUsed')}
-          <View style={styles.sectionWrap}>
-            <Text style={styles.sectionTitle}>Probation Period</Text>
-            <Picker
-              selectedValue={
-                localItem.probationPeriod || PROBATION_PERIOD_OPTIONS[0].value
-              }
-              onValueChange={(val) =>
-                update({ probationPeriod: val as PROBATION_PERIOD })
-              }
-            >
-              {PROBATION_PERIOD_OPTIONS.map((option) => (
-                <Picker.Item
-                  label={option.label}
-                  value={option.value}
-                  key={option.value}
-                />
-              ))}
-            </Picker>
-          </View>
-        </>
-      );
+  function renderFieldsForToBeRemoved() {
+    return (
+      <>
+        {renderDateSettingField('dateLastUsed')}
+        <View style={styles.sectionWrap}>
+          <Text style={styles.sectionTitle}>Probation Period</Text>
+          <Picker
+            selectedValue={
+              localItem.probationPeriod || PROBATION_PERIOD_OPTIONS[0].value
+            }
+            onValueChange={(val) =>
+              update({ probationPeriod: val as PROBATION_PERIOD })
+            }
+          >
+            {PROBATION_PERIOD_OPTIONS.map((option) => (
+              <Picker.Item
+                label={option.label}
+                value={option.value}
+                key={option.value}
+              />
+            ))}
+          </Picker>
+        </View>
+      </>
+    );
+  }
 
-    return renderDateSettingField('dateAcquired');
+  function renderImageField() {
+    return (
+      <TouchableOpacity style={styles.imageWrap} onPress={onImageTap}>
+        {localItem.img ? (
+          <Image
+            style={styles.image}
+            source={localItem.img || require('../assets/item.png')}
+          />
+        ) : (
+          <View style={styles.placeholder}>
+            <Icon type="item" size={50} />
+          </View>
+        )}
+      </TouchableOpacity>
+    );
+  }
+
+  function renderLabelAndNameFields() {
+    return (
+      <View>
+        <Text
+          style={styles.itemName}
+          onPress={() => {
+            navigation.navigate('InputPopup', {
+              value: localItem.name,
+              fieldName: 'Name',
+              onChange: updateName,
+            });
+          }}
+        >
+          {localItem.name || 'Name goes here'}
+        </Text>
+        <Text
+          style={styles.labelName}
+          onPress={() => {
+            navigation.navigate('InputPopup', {
+              value: localItem.label,
+              fieldName: 'Label',
+              onChange: updateLabel,
+            });
+          }}
+        >
+          {localItem.label}
+        </Text>
+      </View>
+    );
+  }
+
+  function renderImagePromptDialog() {
+    return (
+      <Modal
+        isOpen={imagePromptShow}
+        onClose={() => setImagePromptShow(false)}
+        size="lg"
+      >
+        <Modal.Content>
+          <Modal.Body>
+            <NativeBaseProvider>
+              <Button
+                style={{ marginBottom: 10, marginTop: 10 }}
+                onPress={() => {
+                  setImagePromptShow(false);
+                  onImagePickerOpen();
+                }}
+              >
+                Pick From Library
+              </Button>
+              <Button
+                style={{ marginBottom: 10 }}
+                onPress={() => {
+                  setImagePromptShow(false);
+                  onCameraOpen();
+                }}
+              >
+                Take Picture
+              </Button>
+              <Button style={{ marginBottom: 10 }} onPress={() => {}}>
+                Delete Picture
+              </Button>
+            </NativeBaseProvider>
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
+    );
   }
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="position">
+      {renderImagePromptDialog()}
       <SafeAreaView>
         <ScrollView>
           <View>
             <View style={styles.imageAndName}>
-              <TouchableOpacity
-                style={styles.imageWrap}
-                onPress={() => {
-                  navigation.navigate('CameraPopup', {
-                    onChange: updatePhoto,
-                  });
-                }}
-              >
-                {localItem.img ? (
-                  <Image
-                    style={styles.image}
-                    source={localItem.img || require('../assets/item.png')}
-                  />
-                ) : (
-                  <View style={styles.placeholder}>
-                    <Icon type="item" size={50} />
-                  </View>
-                )}
-              </TouchableOpacity>
-              <View>
-                <Text
-                  style={styles.itemName}
-                  onPress={() => {
-                    navigation.navigate('InputPopup', {
-                      value: localItem.name,
-                      fieldName: 'Name',
-                      onChange: updateName,
-                    });
-                  }}
-                >
-                  {localItem.name || 'Name goes here'}
-                </Text>
-                <Text
-                  style={styles.labelName}
-                  onPress={() => {
-                    navigation.navigate('InputPopup', {
-                      value: localItem.label,
-                      fieldName: 'Label',
-                      onChange: updateLabel,
-                    });
-                  }}
-                >
-                  {localItem.label}
-                </Text>
-              </View>
+              {renderImageField()}
+              {renderLabelAndNameFields()}
             </View>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('InputPopup', {
-                  value: localItem.note,
-                  fieldName: 'Note',
-                  onChange: updateNote,
-                  isMultiLine: true,
-                });
-              }}
-            >
+            <TouchableOpacity onPress={onNoteInputTap}>
               <View style={styles.sectionWrap}>
                 <Text style={styles.sectionTitle}>Note</Text>
                 <Text>{localItem.note || '...'}</Text>
@@ -255,27 +313,25 @@ const ScreenSingleItem = ({ route }: Props) => {
                 value={localItem.amount}
               />
             </View>
-            {renderLabelSpecificFields()}
+            {localItem.label === PRESET_LABEL.TO_BE_REMOVED
+              ? renderFieldsForToBeRemoved()
+              : renderDateSettingField('dateAcquired')}
           </View>
           {isNew && (
-            <View style={styles.saveBtn}>
-              <Button
-                onPress={handleAdd}
-                title="SAVE"
-                color="white"
-                accessibilityLabel="Save this newly created item"
-              />
-            </View>
+            <ButtonBig
+              onPress={handleAdd}
+              title="SAVE"
+              backgroundColor="#6bb37e"
+              accessibilityLabel="Save this newly created item"
+            />
           )}
           {!isNew && (
-            <View style={styles.deleteBtn}>
-              <Button
-                onPress={handleRemove}
-                title="DELETE ITEM"
-                color="white"
-                accessibilityLabel="Delete this item"
-              />
-            </View>
+            <ButtonBig
+              onPress={handleRemove}
+              title="DELETE ITEM"
+              backgroundColor="#fc5603"
+              accessibilityLabel="Delete this item"
+            />
           )}
         </ScrollView>
       </SafeAreaView>
@@ -315,13 +371,6 @@ const styles = StyleSheet.create({
   subText: {
     ...shared.secondaryText,
     alignSelf: 'flex-end',
-  },
-  saveBtn: {
-    ...shared.buttonBig,
-  },
-  deleteBtn: {
-    ...shared.buttonBig,
-    backgroundColor: '#fc5603',
   },
   placeholder: {
     ...shared.image,
