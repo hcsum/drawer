@@ -6,7 +6,7 @@ import { ItemsProvider } from './contexts/ItemsContext';
 import ScreenInputPopup from './screens/ScreenInputPopup';
 import ScreenCameraPopup from './screens/ScreenCameraPopup';
 import { CameraCapturedPicture } from 'expo-camera';
-import { NativeBaseProvider } from 'native-base';
+import { NativeBaseProvider, StatusBar } from 'native-base';
 
 export type RootScreenParamList = {
   Main: undefined;
@@ -29,6 +29,7 @@ const App = () => {
     <NativeBaseProvider>
       <ItemsProvider>
         <NavigationContainer>
+          <StatusBar barStyle="dark-content" />
           <RootStack.Navigator mode="modal">
             <RootStack.Screen
               name="Main"

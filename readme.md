@@ -6,7 +6,8 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ### P1
 
-- feat(image): let user able to select a picture from phone
+- bug(top bar): text not visible in dark mode
+
 - feat(image): let user able to delete an item picture
 
 - feat: toBeRemoved item functionality (done?)
@@ -16,11 +17,12 @@ An app to help people identify items truly valuable to them amoung all their pos
 - feat(image): more ways to edit image (change direction) picked from library before saving
 
 - bug(image): thumbnail image not center
-- bug(top bar): text not visible in dark mode
 
 - GUI: icon
 - GUI: splash image
+- GUI: refactor current components to using native-base
 
+- feat(image): let user able to select a picture from phone ✅
 - feat: persist user inputs ✅
 
 ### Can wait
