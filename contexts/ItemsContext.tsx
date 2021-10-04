@@ -116,16 +116,20 @@ function useItems() {
 }
 
 function ItemsProvider(props: any) {
-  const [items, dispatch] = useReducer(itemsReducer, []);
+  const [items, dispatch] = useReducer(itemsReducer, MOCK_DATA);
   const value = useMemo(() => [items, dispatch], [items]);
 
+  // get storageData and assign to state
   useEffect(() => {
-    storeData(JSON.stringify(MOCK_DATA))
-      .then(getData)
-      .then(
-        (data) => data && dispatch({ type: 'SET', payload: JSON.parse(data) })
-      );
+    getData().then(
+      (data) => data && dispatch({ type: 'SET', payload: JSON.parse(data) })
+    );
   }, []);
+
+  // whenever state changes, update storageData
+  useEffect(() => {
+    storeData(JSON.stringify(items));
+  }, [items]);
 
   return <ItemsContext.Provider value={value} {...props} />;
 }

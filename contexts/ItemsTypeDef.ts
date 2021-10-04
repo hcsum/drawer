@@ -1,3 +1,6 @@
+import { CameraCapturedPicture } from 'expo-camera';
+import { ImageInfo } from 'expo-image-picker/build/ImagePicker.types';
+
 export enum PRESET_LABEL {
   TO_BE_REMOVED = 'To be removed',
   NOT_LABELED = 'Not labeled',
@@ -18,7 +21,7 @@ export type TItem = {
   name: string;
   note: string;
   amount: number;
-  img: any | undefined; // todo: define type
+  img: CameraCapturedPicture | ImageInfo | undefined;
   label: string | PRESET_LABEL;
   dateAcquired: string | undefined;
   dateLastUsed: string | undefined;
@@ -49,18 +52,7 @@ type ActionRemove = {
 
 const MOCK_DATA_CLEAR: TItem[] = [
   {
-    name: 'Badminton racket',
-    note: '',
-    amount: 1,
-    img: undefined,
-    dateAcquired: undefined,
-    dateLastUsed: '2021-01-30',
-    probationPeriod: PROBATION_PERIOD.THREE_MONTH,
-    id: '297656556',
-    label: PRESET_LABEL.TO_BE_REMOVED,
-  },
-  {
-    name: 'ugly sport shirt',
+    name: 'My ugly sport shirt',
     note: '',
     amount: 1,
     img: undefined,
@@ -71,9 +63,9 @@ const MOCK_DATA_CLEAR: TItem[] = [
     label: PRESET_LABEL.TO_BE_REMOVED,
   },
   {
-    name: 'some old shoes',
+    name: 'some shoes',
     note: '',
-    amount: 1,
+    amount: 3,
     img: undefined,
     dateAcquired: undefined,
     dateLastUsed: '2021-04-10',
@@ -90,48 +82,48 @@ export interface ISearchQuery {
 
 export const MOCK_DATA: TItem[] = [
   {
-    name: 'Respberry Pi',
-    note: 'My mini computer',
+    name: 'Keydous NJ68',
+    note: 'My favorite',
     amount: 1,
     img: undefined,
-    label: 'Gadget',
+    label: 'Keyboards',
     dateAcquired: '2021-01-30',
     dateLastUsed: undefined,
     probationPeriod: undefined,
     id: '897656556',
   },
   {
-    name: 'Keydrous keyboard',
-    note: 'Awesome 60% mechanical keyboard!! so sao!!',
+    name: 'Melgeek 64',
+    note: 'Awesome 60% mechanical keyboard!! so cool!!',
     amount: 1,
     img: undefined,
-    label: 'Gadget',
+    label: 'Keyboards',
     dateAcquired: '2021-03-16',
     dateLastUsed: undefined,
     probationPeriod: undefined,
     id: '897656588',
   },
   {
-    name: 'Thin sport coat',
-    note: 'love it so much, so useful',
+    name: 'Keychron K7',
+    note: 'so low so nice',
     amount: 1,
     img: undefined,
-    label: 'Wardrobe',
-    dateAcquired: '2021-04-05',
+    label: 'Keyboards',
+    dateAcquired: '2020-08-20',
     dateLastUsed: undefined,
     probationPeriod: undefined,
-    id: '897656558',
+    id: '891156590',
   },
   {
-    name: 'Socks',
-    note: 'socks and floor',
-    amount: 6,
+    name: 'Melgeek Z70',
+    note: 'I thought its was good.',
+    amount: 1,
     img: undefined,
-    label: 'Wardrobe',
-    dateAcquired: '2021-04-05',
+    label: 'Keyboards',
+    dateAcquired: '2020-08-20',
     dateLastUsed: undefined,
     probationPeriod: undefined,
-    id: '897656555',
+    id: '891156590',
   },
   {
     name: 'Tennis racket',
@@ -145,29 +137,7 @@ export const MOCK_DATA: TItem[] = [
     id: '897656511',
   },
   {
-    name: 'Starbuck cup',
-    note: 'my cup!',
-    amount: 1,
-    img: undefined,
-    label: 'Daily',
-    dateAcquired: '2020-08-20',
-    dateLastUsed: undefined,
-    probationPeriod: undefined,
-    id: '897656590',
-  },
-  {
-    name: 'Keychron K3',
-    note: 'so low so nice',
-    amount: 1,
-    img: undefined,
-    label: 'Gadget',
-    dateAcquired: '2020-08-20',
-    dateLastUsed: undefined,
-    probationPeriod: undefined,
-    id: '891156590',
-  },
-  {
-    name: 'Glasses',
+    name: 'A pair of glasses',
     note: 'i need to see',
     amount: 1,
     img: undefined,
