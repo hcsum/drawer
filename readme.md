@@ -6,15 +6,18 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ### P1
 
-- bug(top bar): text not visible in dark mode
+- item image:
+  with **expo-image-editor**
+  it has style issue. need to fix it before using it.
+  without **expo-image-editor**
+  if user intend to take a vertical picture, it is acceptable for displaying the pic by now.
+  but if user intend to take a horizontal picture, there is no way to change pic direction, not acceptable.
+  found out it is because of the system font set to largest.
 
 - feat(image): let user able to delete an item picture
-
 - feat: toBeRemoved item functionality (done?)
 - feat: backup/import data
 - feat: settings page
-- feat(image): edit image taken before saving
-- feat(image): more ways to edit image (change direction) picked from library before saving
 
 - bug(image): thumbnail image not center
 
@@ -24,6 +27,7 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 - feat(image): let user able to select a picture from phone ✅
 - feat: persist user inputs ✅
+- bug(top bar): text not visible in dark mode ✅
 
 ### Can wait
 

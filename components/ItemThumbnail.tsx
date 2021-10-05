@@ -47,13 +47,14 @@ const ItemThumbnail = ({
   if ((index + 1) % 2 === 0) containerStyle.marginLeft = 10;
   else containerStyle.marginRight = 10;
 
-  console.log('item image', item.img);
-
   return (
     <TouchableOpacity onPress={onTap}>
       <View style={containerStyle}>
         {item.img ? (
-          <Image style={styles.thumbnail} source={item.img} />
+          <Image
+            style={[styles.thumbnail, { height: item.img.height / 10 }]}
+            source={item.img}
+          />
         ) : (
           <View style={styles.placeholder}>
             <Icon type="item" size={40} />
@@ -76,14 +77,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     borderRadius: shared.common.borderRadius,
-    height: 200,
+    height: 240,
     marginLeft: 0,
     marginRight: 0,
     marginBottom: 20,
   },
   thumbnail: {
     ...shared.image,
-    resizeMode: 'cover',
   },
   placeholder: {
     ...shared.image,

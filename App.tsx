@@ -7,6 +7,7 @@ import ScreenInputPopup from './screens/ScreenInputPopup';
 import ScreenCameraPopup from './screens/ScreenCameraPopup';
 import { CameraCapturedPicture } from 'expo-camera';
 import { NativeBaseProvider, StatusBar } from 'native-base';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
 export type RootScreenParamList = {
   Main: undefined;
@@ -26,38 +27,46 @@ const RootStack = createStackNavigator<RootScreenParamList>();
 
 const App = () => {
   return (
-    <NativeBaseProvider>
-      <ItemsProvider>
-        <NavigationContainer>
-          <StatusBar barStyle="dark-content" />
-          <RootStack.Navigator mode="modal">
-            <RootStack.Screen
-              name="Main"
-              component={Main}
-              options={{ headerShown: false }}
-            />
-            <RootStack.Screen
-              name="InputPopup"
-              component={ScreenInputPopup}
-              options={{
-                headerShown: false,
-                gestureResponseDistance: { vertical: 300 },
-              }}
-            />
-            <RootStack.Screen
-              name="CameraPopup"
-              component={ScreenCameraPopup}
-              options={{
-                headerShown: false,
-                gestureResponseDistance: { vertical: 300 },
-              }}
-            />
-          </RootStack.Navigator>
-        </NavigationContainer>
-      </ItemsProvider>
-    </NativeBaseProvider>
+    <SafeAreaView style={styles.container}>
+      <NativeBaseProvider>
+        <ItemsProvider>
+          <NavigationContainer>
+            <StatusBar barStyle="dark-content" />
+            <RootStack.Navigator mode="modal">
+              <RootStack.Screen
+                name="Main"
+                component={Main}
+                options={{ headerShown: false }}
+              />
+              <RootStack.Screen
+                name="InputPopup"
+                component={ScreenInputPopup}
+                options={{
+                  headerShown: false,
+                  gestureResponseDistance: { vertical: 300 },
+                }}
+              />
+              <RootStack.Screen
+                name="CameraPopup"
+                component={ScreenCameraPopup}
+                options={{
+                  headerShown: false,
+                  gestureResponseDistance: { vertical: 300 },
+                }}
+              />
+            </RootStack.Navigator>
+          </NavigationContainer>
+        </ItemsProvider>
+      </NativeBaseProvider>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default App;
 

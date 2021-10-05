@@ -17,8 +17,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   TouchableOpacity,
-  SafeAreaView,
   Alert,
+  Pressable,
 } from 'react-native';
 import shared from '../CommonStyles';
 import { MainScreenParamList } from './ScreenMain';
@@ -77,6 +77,8 @@ const ScreenSingleItem = ({ route }: Props) => {
 
   function update(field: Partial<TItem>) {
     const updated = { ...localItem, ...field };
+
+    console.log('updated', updated);
 
     updateItem(updated);
     setLocalItem(updated);
@@ -203,19 +205,28 @@ const ScreenSingleItem = ({ route }: Props) => {
   }
 
   function renderImageField() {
+    const { img } = localItem;
+    const SCALE_RATIO = img && img.height < img.width ? 10 : 6;
+    // const SCALE_RATIO = 6;
+
     return (
-      <TouchableOpacity style={styles.imageWrap} onPress={onImageTap}>
-        {localItem.img ? (
+      <Pressable style={styles.imageWrap} onPress={onImageTap}>
+        {img ? (
           <Image
-            style={styles.image}
-            source={localItem.img || require('../assets/item.png')}
+            style={[
+              styles.image,
+              {
+                height: img.height / SCALE_RATIO,
+              },
+            ]}
+            source={img || require('../assets/item.png')}
           />
         ) : (
           <View style={styles.placeholder}>
             <Icon type="item" size={50} />
           </View>
         )}
-      </TouchableOpacity>
+      </Pressable>
     );
   }
 
@@ -291,50 +302,48 @@ const ScreenSingleItem = ({ route }: Props) => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="position">
       {renderImagePromptDialog()}
-      <SafeAreaView>
-        <ScrollView>
-          <View>
-            <View style={styles.imageAndName}>
-              {renderImageField()}
-              {renderLabelAndNameFields()}
-            </View>
-            <TouchableOpacity onPress={onNoteInputTap}>
-              <View style={styles.sectionWrap}>
-                <Text style={styles.sectionTitle}>Note</Text>
-                <Text>{localItem.note || '...'}</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={styles.sectionWrap}>
-              <Text style={styles.sectionTitle}>Amount</Text>
-              <NumericInput
-                onChange={(value) => update({ amount: value })}
-                rounded
-                minValue={1}
-                value={localItem.amount}
-              />
-            </View>
-            {localItem.label === PRESET_LABEL.TO_BE_REMOVED
-              ? renderFieldsForToBeRemoved()
-              : renderDateSettingField('dateAcquired')}
+      <ScrollView>
+        <View>
+          <View style={styles.imageAndName}>
+            {renderImageField()}
+            {renderLabelAndNameFields()}
           </View>
-          {isNew && (
-            <ButtonBig
-              onPress={handleAdd}
-              title="SAVE"
-              backgroundColor="#6bb37e"
-              accessibilityLabel="Save this newly created item"
+          <TouchableOpacity onPress={onNoteInputTap}>
+            <View style={styles.sectionWrap}>
+              <Text style={styles.sectionTitle}>Note</Text>
+              <Text>{localItem.note || '...'}</Text>
+            </View>
+          </TouchableOpacity>
+          <View style={styles.sectionWrap}>
+            <Text style={styles.sectionTitle}>Amount</Text>
+            <NumericInput
+              onChange={(value) => update({ amount: value })}
+              rounded
+              minValue={1}
+              value={localItem.amount}
             />
-          )}
-          {!isNew && (
-            <ButtonBig
-              onPress={handleRemove}
-              title="DELETE ITEM"
-              backgroundColor="#fc5603"
-              accessibilityLabel="Delete this item"
-            />
-          )}
-        </ScrollView>
-      </SafeAreaView>
+          </View>
+          {localItem.label === PRESET_LABEL.TO_BE_REMOVED
+            ? renderFieldsForToBeRemoved()
+            : renderDateSettingField('dateAcquired')}
+        </View>
+        {isNew && (
+          <ButtonBig
+            onPress={handleAdd}
+            title="SAVE"
+            backgroundColor="#6bb37e"
+            accessibilityLabel="Save this newly created item"
+          />
+        )}
+        {!isNew && (
+          <ButtonBig
+            onPress={handleRemove}
+            title="DELETE ITEM"
+            backgroundColor="#fc5603"
+            accessibilityLabel="Delete this item"
+          />
+        )}
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
@@ -345,14 +354,12 @@ const styles = StyleSheet.create({
   },
   imageAndName: {
     ...shared.section,
-    height: 300,
   },
   imageWrap: {
     flex: 1,
   },
   image: {
     ...shared.image,
-    resizeMode: 'cover',
   },
   itemName: {
     fontSize: shared.bigSizeText,
@@ -374,6 +381,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     ...shared.image,
+    height: 100,
     justifyContent: 'center',
     alignItems: 'center',
   },
