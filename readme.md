@@ -15,19 +15,18 @@ An app to help people identify items truly valuable to them amoung all their pos
   found out it is because of the system font set to largest.
 
 - feat(image): let user able to delete an item picture
-- feat: toBeRemoved item functionality (done?)
 - feat: backup/import data
 - feat: settings page
-
-- bug(image): thumbnail image not center
 
 - GUI: icon
 - GUI: splash image
 - GUI: refactor current components to using native-base
 
+- bug(image): thumbnail image not center ✅
 - feat(image): let user able to select a picture from phone ✅
 - feat: persist user inputs ✅
 - bug(top bar): text not visible in dark mode ✅
+- feat: toBeRemoved item functionality ✅
 
 ### Can wait
 

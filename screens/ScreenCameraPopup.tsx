@@ -1,10 +1,11 @@
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { CameraCapturedPicture } from 'expo-camera';
+import { ImageResult } from 'expo-image-manipulator';
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { ImageEditor } from 'expo-image-editor';
 import { RootScreenParamList } from '../App';
 import Camera from '../components/Camera';
+import ImageEditor from '../components/ImageEditor';
 
 type routeProp = RouteProp<RootScreenParamList, 'CameraPopup'>;
 
@@ -13,36 +14,29 @@ type Props = {
 };
 
 const ScreenCameraPopup = ({ route }: Props) => {
-  const [editorVisible, setEditorVisible] = useState(false);
-  const [imageUri, setImageUri] = useState('');
+  const [image, setImage] = useState<CameraCapturedPicture>();
   const { onChange } = route.params;
   const nav = useNavigation();
 
   function handleSnap(pic: CameraCapturedPicture) {
-    setImageUri(pic.uri);
-    setEditorVisible(true);
-    // onChange(pic);
-    // nav.goBack();
+    setImage(pic);
+  }
+
+  function handleEditDone(pic: ImageResult) {
+    onChange(pic);
+    nav.goBack();
   }
 
   return (
     <View style={styles.container}>
-      <Camera onSnap={handleSnap} />
-      <ImageEditor
-        visible={editorVisible}
-        onCloseEditor={() => setEditorVisible(false)}
-        imageUri={imageUri}
-        lockAspectRatio={false}
-        minimumCropDimensions={{
-          width: 100,
-          height: 100,
-        }}
-        onEditingComplete={(result) => {
-          onChange(result);
-          nav.goBack();
-        }}
-        mode="full"
-      />
+      {!image && <Camera onSnap={handleSnap} />}
+      {image && (
+        <ImageEditor
+          image={image}
+          onDone={handleEditDone}
+          onCancel={() => nav.goBack()}
+        />
+      )}
     </View>
   );
 };
