@@ -4,32 +4,27 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ## Todo
 
-### P1
+### Primary
 
-- item image:
-  with **expo-image-editor**
-  it has style issue. need to fix it before using it.
-  without **expo-image-editor**
-  if user intend to take a vertical picture, it is acceptable for displaying the pic by now.
-  but if user intend to take a horizontal picture, there is no way to change pic direction, not acceptable.
-  found out it is because of the system font set to largest.
-
-- feat(image): let user able to delete an item picture
 - feat: backup/import data
 - feat: settings page
 
+  - backup method investigation
+  - GUI
+  - logic
+
+- feat: notification for items exceed deadline
+
+- feat(image): delete an item picture
+
+- UI: lock rotation when taking a picture.
 - GUI: icon
 - GUI: splash image
 - GUI: refactor current components to using native-base
 
-- bug(image): thumbnail image not center ✅
-- feat(image): let user able to select a picture from phone ✅
-- feat: persist user inputs ✅
-- bug(top bar): text not visible in dark mode ✅
-- feat: toBeRemoved item functionality ✅
-
 ### Can wait
 
+- feat(image): crop image
 - GUI: nicer GUI
 - feat: light/dark theme
 - improve: add keep / remove item based on current screen: on keep screen while tapping add button, singleItemScreen with keep fields, same for remove item.
@@ -37,4 +32,11 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ### Blocked
 
-- notification for items exceed deadline
+### Done
+
+- item image ✅
+- bug(image): thumbnail image not center ✅
+- feat(image): let user able to select a picture from phone ✅
+- feat: persist user inputs ✅
+- bug(top bar): text not visible in dark mode ✅
+- feat: toBeRemoved item functionality ✅

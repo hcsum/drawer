@@ -121,14 +121,14 @@ function ItemsProvider(props: any) {
 
   // get storageData and assign to state
   useEffect(() => {
-    getData().then(
+    getData('@item_data').then(
       (data) => data && dispatch({ type: 'SET', payload: JSON.parse(data) })
     );
   }, []);
 
   // whenever state changes, update storageData
   useEffect(() => {
-    storeData(JSON.stringify(items));
+    storeData('@item_data', JSON.stringify(items));
   }, [items]);
 
   return <ItemsContext.Provider value={value} {...props} />;

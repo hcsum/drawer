@@ -2,7 +2,7 @@ const borderRadius = 10;
 const screenPadding = 10;
 const backgroundColor = 'white';
 const bigSizeText = 30;
-const smaillSizeText = 18;
+const smallSizeText = 18;
 
 export default {
   common: {
@@ -38,7 +38,7 @@ export default {
     color: 'gray',
   },
   bigSizeText,
-  smaillSizeText,
+  smallSizeText,
   inputArea: {
     borderRadius: 5,
   },

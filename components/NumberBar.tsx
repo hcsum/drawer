@@ -7,7 +7,7 @@ interface IProps {
   title: string;
   number: number;
   onPress: () => void;
-  icon: 'all' | 'label' | 'remove';
+  icon?: 'all' | 'label' | 'remove';
 }
 
 const IconMap = {
@@ -20,7 +20,7 @@ const NumberBar = ({ title, number, onPress, icon }: IProps) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.title}>
-        <Image style={styles.icon} source={IconMap[icon]} />
+        {icon && <Image style={styles.icon} source={IconMap[icon]} />}
         <Text>{title}</Text>
       </View>
       <Text>{number}</Text>

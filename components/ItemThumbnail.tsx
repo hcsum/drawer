@@ -3,8 +3,8 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import Text from './Text';
 import SubText from './SubText';
-import truncate from '../utils/truncate';
-import { checkIsExpired, getDateStringSince } from '../utils/item';
+import truncate from '../utils/Truncate';
+import { checkIsExpired, getDateStringSince } from '../utils/Item';
 import { PROBATION_PERIOD, TItem } from '../contexts/ItemsTypeDef';
 import Icon from './Icon';
 
