@@ -31,7 +31,7 @@ import {
 } from '../contexts/ItemsTypeDef';
 import { CameraCapturedPicture } from 'expo-camera';
 import Icon from '../components/Icon';
-import { getDateStringSince } from '../utils/item';
+import { getDateStringSince } from '../utils/Item';
 import ButtonBig from '../components/ButtonBig';
 import pickImage from '../utils/ImagePicker';
 
@@ -207,7 +207,6 @@ const ScreenSingleItem = ({ route }: Props) => {
   function renderImageField() {
     const { img } = localItem;
     const SCALE_RATIO = img && img.height < img.width ? 10 : 6;
-    // const SCALE_RATIO = 6;
 
     return (
       <Pressable style={styles.imageWrap} onPress={onImageTap}>

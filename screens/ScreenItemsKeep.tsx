@@ -3,7 +3,7 @@ import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import NumberBar from '../components/NumberBar';
 import LabelThumbnail from '../components/LabelThumbnail';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { HomeTabStackParamList } from './NavHome';
+import { HomeTabStackParamList } from '../components/MainScreenBottomNav';
 import { RouteProp, CompositeNavigationProp } from '@react-navigation/native';
 import { MainScreenParamList } from './ScreenMain';
 import { useItems } from '../contexts/ItemsContext';
@@ -36,11 +36,11 @@ export default function KeepItemsScreen({ navigation }: Props) {
               searchQuery: {},
             });
           }}
-          icon="all"
         />
       </View>
-      <View style={styles.labelList}>
+      <View>
         <FlatList
+          style={styles.labelList}
           data={labelsWithTotal}
           numColumns={COLUMN}
           keyExtractor={(item) => item[0]}
@@ -75,6 +75,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   labelList: {
-    marginBottom: 150,
+    // paddingBottom: 200,
   },
 });

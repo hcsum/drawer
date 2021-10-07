@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Main from './screens/ScreenMain';
+import ScreenMain from './screens/ScreenMain';
 import { ItemsProvider } from './contexts/ItemsContext';
 import ScreenInputPopup from './screens/ScreenInputPopup';
 import ScreenCameraPopup from './screens/ScreenCameraPopup';
@@ -35,7 +35,7 @@ const App = () => {
             <RootStack.Navigator mode="modal">
               <RootStack.Screen
                 name="Main"
-                component={Main}
+                component={ScreenMain}
                 options={{ headerShown: false }}
               />
               <RootStack.Screen

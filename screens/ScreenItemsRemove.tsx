@@ -5,7 +5,7 @@ import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import ItemThumbnail from '../components/ItemThumbnail';
 import { useItems } from '../contexts/ItemsContext';
 // import useNotification from '../hooks/useNotification';
-import { HomeTabStackParamList } from './NavHome';
+import { HomeTabStackParamList } from '../components/MainScreenBottomNav';
 import { MainScreenParamList } from './ScreenMain';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
