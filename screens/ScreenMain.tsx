@@ -11,6 +11,7 @@ import { getNewItem } from '../utils/Item';
 import { RootScreenParamList } from '../App';
 import SearchButton from '../components/SearchButton';
 import ScreenSettings from './ScreenSettings';
+import { useGlobalState } from '../contexts/GlobalContext';
 
 export type MainScreenParamList = {
   Home: undefined;
@@ -27,6 +28,7 @@ const Stack = createStackNavigator<MainScreenParamList>();
 const MainScreen = () => {
   const navigation =
     useNavigation<NavigationProp<MainScreenParamList & RootScreenParamList>>();
+  const { globalState } = useGlobalState();
 
   return (
     <Stack.Navigator>
@@ -51,12 +53,12 @@ const MainScreen = () => {
               <View style={{ paddingRight: 20 }}>
                 <IconButton
                   type="add"
-                  onPress={() =>
+                  onPress={() => {
                     navigation.navigate('ItemSingle', {
                       item: getNewItem(),
                       isNew: true,
-                    })
-                  }
+                    });
+                  }}
                 />
               </View>
             </View>
