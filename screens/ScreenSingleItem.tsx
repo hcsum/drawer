@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native';
 import NumericInput from 'react-native-numeric-input';
 import { Button, NativeBaseProvider, Modal } from 'native-base';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import React, { useEffect, useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import {
@@ -34,6 +34,7 @@ import Icon from '../components/Icon';
 import { getDateStringSince } from '../utils/Item';
 import ButtonBig from '../components/ButtonBig';
 import pickImage from '../utils/ImagePicker';
+import * as notification from '../utils/Notification';
 
 type routeProp = RouteProp<MainScreenParamList, 'ItemSingle'>;
 
@@ -75,10 +76,17 @@ const ScreenSingleItem = ({ route }: Props) => {
     return () => navigation.removeListener('beforeRemove', onGoBack);
   }, []);
 
+  useEffect(() => {
+    if (localItem.label === PRESET_LABEL.TO_BE_REMOVED && !isNew)
+      scheduleNotificationForToBeRemoved(
+        localItem.dateLastUsed,
+        localItem.probationPeriod!,
+        localItem.id
+      );
+  }, [localItem.dateLastUsed, localItem.probationPeriod, localItem.label]);
+
   function update(field: Partial<TItem>) {
     const updated = { ...localItem, ...field };
-
-    console.log('updated', updated);
 
     updateItem(updated);
     setLocalItem(updated);
@@ -105,6 +113,11 @@ const ScreenSingleItem = ({ route }: Props) => {
 
     if (localItem.label === PRESET_LABEL.TO_BE_REMOVED) {
       navigation.dispatch(StackActions.replace('Home', { screen: 'Clear' }));
+      scheduleNotificationForToBeRemoved(
+        localItem.dateLastUsed,
+        localItem.probationPeriod!,
+        localItem.id
+      );
       return;
     }
 
@@ -117,6 +130,9 @@ const ScreenSingleItem = ({ route }: Props) => {
   }
 
   function handleRemove() {
+    if (localItem.label === PRESET_LABEL.TO_BE_REMOVED)
+      notification.cancel(localItem.id);
+
     Alert.alert('Remove item?', '', [
       { text: 'Cancel', style: 'cancel', onPress: () => {} },
       {
@@ -164,7 +180,7 @@ const ScreenSingleItem = ({ route }: Props) => {
           textColor="black"
           mode="date"
           display="default"
-          onChange={(_, date) =>
+          onChange={(_: Event, date?: Date) =>
             update({
               [type]: date?.toISOString(),
             })
@@ -346,6 +362,28 @@ const ScreenSingleItem = ({ route }: Props) => {
     </KeyboardAvoidingView>
   );
 };
+
+function scheduleNotificationForToBeRemoved(
+  dateLastUsed: string,
+  probationPeriod: PROBATION_PERIOD,
+  id: string
+) {
+  const dateToNotify = new Date(
+    new Date(dateLastUsed).getTime() + probationPeriod
+  );
+  dateToNotify.setHours(9, 0, 0, 0); // set notification on expiration date at 9 am local time
+  notification
+    .schedule(
+      dateToNotify.getTime(),
+      'Ready to let go?',
+      'Some items from your cluster has expired today',
+      id
+    )
+    .then(() =>
+      console.log('set notification at', dateToNotify.toLocaleString())
+    )
+    .catch((err) => console.error('fail to set notification', err.message));
+}
 
 const styles = StyleSheet.create({
   container: {

@@ -20,15 +20,13 @@ export default function App() {
       schedulePushNotification()
     );
 
-    notificationListener.current = Notifications.addNotificationReceivedListener(
-      (notification) => {}
-    );
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {});
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
-      }
-    );
+      });
 
     return () => {
       Notifications.removeNotificationSubscription(
@@ -53,9 +51,8 @@ async function schedulePushNotification() {
 async function registerForPushNotificationsAsync() {
   let token;
   if (Constants.isDevice) {
-    const {
-      status: existingStatus,
-    } = await Notifications.getPermissionsAsync();
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
       const { status } = await Notifications.requestPermissionsAsync();

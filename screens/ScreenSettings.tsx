@@ -6,7 +6,7 @@ function ScreenSettings() {
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        <Text style={styles.title}>Backup</Text>
+        <Text style={styles.title}>Export data</Text>
       </View>
       <View style={styles.section}>
         <Text style={styles.title}>Restore data</Text>

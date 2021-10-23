@@ -6,21 +6,18 @@ An app to help people identify items truly valuable to them amoung all their pos
 
 ### Primary
 
-- feat: backup/import data
-- feat: settings page
-
-  - backup method investigation
-  - GUI
-  - logic
-
 - feat: notification for items exceed deadline
+- feat: icon badge for items exceed deadline
 
 - feat(image): delete an item picture
 
 - UI: lock rotation when taking a picture.
+- UI: refine general user flow
 - GUI: icon
 - GUI: splash image
 - GUI: refactor current components to using native-base
+
+- feat: backup/import data
 
 ### Can wait
 

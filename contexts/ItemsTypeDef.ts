@@ -9,11 +9,13 @@ export enum PRESET_LABEL {
 export enum PROBATION_PERIOD {
   THREE_MONTH = 3 * 1000 * 60 * 60 * 24 * 30,
   SIX_MONTH = 6 * 1000 * 60 * 60 * 24 * 30,
+  TWELEVE_MONTH = 12 * 1000 * 60 * 60 * 24 * 30,
 }
 
 export const PROBATION_PERIOD_OPTIONS = [
   { value: PROBATION_PERIOD.THREE_MONTH, label: '3 months' },
   { value: PROBATION_PERIOD.SIX_MONTH, label: '6 months' },
+  { value: PROBATION_PERIOD.TWELEVE_MONTH, label: '12 months' },
 ];
 
 export type TItem = {
@@ -23,8 +25,8 @@ export type TItem = {
   amount: number;
   img: CameraCapturedPicture | ImageInfo | undefined;
   label: string | PRESET_LABEL;
-  dateAcquired: string | undefined;
-  dateLastUsed: string | undefined;
+  dateAcquired: string;
+  dateLastUsed: string;
   probationPeriod: PROBATION_PERIOD | undefined;
 };
 
@@ -56,7 +58,7 @@ const MOCK_DATA_CLEAR: TItem[] = [
     note: '',
     amount: 1,
     img: undefined,
-    dateAcquired: undefined,
+    dateAcquired: '2020-06-30',
     dateLastUsed: '2020-06-30',
     probationPeriod: PROBATION_PERIOD.THREE_MONTH,
     id: '297656999',
@@ -67,7 +69,7 @@ const MOCK_DATA_CLEAR: TItem[] = [
     note: '',
     amount: 3,
     img: undefined,
-    dateAcquired: undefined,
+    dateAcquired: '2020-06-30',
     dateLastUsed: '2021-04-10',
     probationPeriod: PROBATION_PERIOD.THREE_MONTH,
     id: '197656559',
@@ -88,7 +90,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Keyboards',
     dateAcquired: '2021-01-30',
-    dateLastUsed: undefined,
+    dateLastUsed: '2020-06-30',
     probationPeriod: undefined,
     id: '897656556',
   },
@@ -99,7 +101,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Keyboards',
     dateAcquired: '2021-03-16',
-    dateLastUsed: undefined,
+    dateLastUsed: '2020-06-30',
     probationPeriod: undefined,
     id: '897656588',
   },
@@ -110,7 +112,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Keyboards',
     dateAcquired: '2020-08-20',
-    dateLastUsed: undefined,
+    dateLastUsed: '2020-06-30',
     probationPeriod: undefined,
     id: '891156590',
   },
@@ -121,7 +123,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Keyboards',
     dateAcquired: '2020-08-20',
-    dateLastUsed: undefined,
+    dateLastUsed: '2020-06-30',
     probationPeriod: undefined,
     id: '891156590',
   },
@@ -132,7 +134,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Sport',
     dateAcquired: '2020-08-20',
-    dateLastUsed: undefined,
+    dateLastUsed: '2020-06-30',
     probationPeriod: undefined,
     id: '897656511',
   },
@@ -143,7 +145,7 @@ export const MOCK_DATA: TItem[] = [
     img: undefined,
     label: 'Daily',
     dateAcquired: '2020-08-20',
-    dateLastUsed: undefined,
+    dateLastUsed: '2020-06-30',
     probationPeriod: undefined,
     id: '891156090',
   },

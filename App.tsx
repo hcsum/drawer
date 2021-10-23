@@ -69,37 +69,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-
-// import * as Notifications from 'expo-notifications';
-// import React from 'react';
-// import { View, Button } from 'react-native';
-
-// export default function App() {
-//   return (
-//     <View
-//       style={{
-//         flex: 1,
-//         alignItems: 'center',
-//         justifyContent: 'space-around',
-//       }}
-//     >
-//       <Button
-//         title="Press to schedule a notification"
-//         onPress={async () => {
-//           await schedulePushNotification();
-//         }}
-//       />
-//     </View>
-//   );
-// }
-
-// async function schedulePushNotification() {
-//   await Notifications.scheduleNotificationAsync({
-//     content: {
-//       title: "You've got mail!!!! 📬",
-//       body: 'Here is the notification body',
-//       data: { data: 'goes here' },
-//     },
-//     trigger: { seconds: 2 },
-//   });
-// }
